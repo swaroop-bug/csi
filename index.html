@@ -128,47 +128,108 @@ const { useState, useEffect, useRef, useCallback } = React;
    DATA
 ═══════════════════════════════════════════════════ */
 const EVENTS = [
-  { id:1, title:'HackTerna 2024 — 24-Hour Hackathon', date:'Sep 14–15, 2024', type:'past', cat:'Hackathon', att:320, img:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=700&q=75', desc:'90 teams competed across AI, Web3 & HealthTech tracks. Prizes worth ₹1,00,000 distributed to top 5 teams.', loc:'Seminar Hall A', color:'rgba(6,182,212,.15)' },
-  { id:2, title:'Machine Learning with Python Workshop', date:'Nov 12, 2024', type:'past', cat:'Workshop', att:200, img:'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=700&q=75', desc:'Hands-on ML workshop covering Scikit-learn, pandas & real-world datasets. 200+ students participated.', loc:'Computer Lab 1', color:'rgba(124,58,237,.15)' },
-  { id:3, title:'Blockchain & DApps Industry Talk', date:'Oct 5, 2024', type:'past', cat:'Seminar', att:180, img:'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=700&q=75', desc:'Industry speaker from Polygon demystified Web3 concepts with live DApp demos and career guidance.', loc:'Auditorium', color:'rgba(245,158,11,.13)' },
-  { id:4, title:'HackTerna 2025 — 36-Hour Build Sprint', date:'Mar 22–23, 2025', type:'upcoming', cat:'Hackathon', att:null, img:'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=700&q=75', desc:'4 tracks: AI/ML, Web3, HealthTech, EdTech. Prizes worth ₹1,50,000. Open to all Terna students.', loc:'Seminar Hall A & B', color:'rgba(34,197,94,.13)' },
-  { id:5, title:'AWS Cloud Fundamentals Workshop', date:'Apr 5, 2025', type:'upcoming', cat:'Workshop', att:null, img:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=700&q=75', desc:'Hands-on EC2, S3, Lambda & RDS. All participants receive AWS Academy credits on completion. 60 seats.', loc:'Lab 302', color:'rgba(6,182,212,.13)' },
-  { id:6, title:'AI in Production — Panel Discussion', date:'Apr 18, 2025', type:'upcoming', cat:'Seminar', att:null, img:'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=700&q=75', desc:'Panel of ML engineers from top tech firms covering model deployment, MLOps & careers in AI.', loc:'Auditorium', color:'rgba(236,72,153,.13)' },
-  { id:7, title:'Full-Stack Dev Bootcamp — React & Node', date:'May 2–4, 2025', type:'upcoming', cat:'Workshop', att:null, img:'https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=700&q=75', desc:'3-day intensive: React, Node.js, MongoDB, Vercel deployment. Limited to 60 participants.', loc:'Computer Lab 1', color:'rgba(99,102,241,.15)' },
-  { id:8, title:'Code Sprint — Competitive Programming', date:'May 15, 2025', type:'current', cat:'Competition', att:140, img:'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=700&q=75', desc:'Live 3-hour algorithmic contest — problems from beginner to expert level. Register on CodeChef.', loc:'Online + Campus', color:'rgba(239,68,68,.13)' },
+  // ── PAST EVENTS ──
+  { 
+    id: 1, title: 'ArenaX Gaming Event', date: 'Dec 2024', type: 'past', cat: 'Competition', att: 250, 
+    img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=700&q=75', 
+    desc: 'An intense campus-wide gaming tournament featuring top esports titles and amazing prizes.', 
+    loc: 'Main Auditorium', color: 'rgba(239,68,68,.13)' 
+  },
+  { 
+    id: 2, title: 'LinkedIn & Resume Building', date: 'Jan 2025', type: 'past', cat: 'Seminar', att: 180, 
+    img: 'Events/LinkedIn & Resume building.jpeg', 
+    desc: 'Expert guidance on crafting the perfect resume and optimizing LinkedIn profiles for tech placements.', 
+    loc: 'Seminar Hall A', color: 'rgba(59,130,246,.15)' 
+  },
+  { 
+    id: 3, title: 'Github Workshop', date: 'Jan 2025', type: 'past', cat: 'Workshop', att: 120, 
+    img: 'Events/Github.jpeg', 
+    desc: 'Hands-on session covering Git basics, version control, and collaborative open-source development.', 
+    loc: 'Computer Lab 2', color: 'rgba(124,58,237,.15)' 
+  },
+  { 
+    id: 4, title: 'UI/UX Hackathon', date: 'Jan 2025', type: 'past', cat: 'Hackathon', att: 150, 
+    img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=700&q=75', 
+    desc: 'A design sprint where students prototyped solutions for modern interface and accessibility challenges.', 
+    loc: 'Design Lab', color: 'rgba(236,72,153,.13)' 
+  },
+  { 
+    id: 5, title: 'Quiz Competition', date: 'Jan 2025', type: 'past', cat: 'Competition', att: 100, 
+    img: 'Events/quiz.jpg', 
+    desc: 'A thrilling tech trivia contest testing knowledge across programming, hardware, and tech history.', 
+    loc: 'Seminar Hall B', color: 'rgba(245,158,11,.13)' 
+  },
+  { 
+    id: 6, title: 'Flutter Webinar', date: 'Feb 2025', type: 'past', cat: 'Seminar', att: 220, 
+    img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=75', 
+    desc: 'An online session introducing cross-platform mobile app development using Flutter and Dart.', 
+    loc: 'Online (Zoom)', color: 'rgba(6,182,212,.15)' 
+  },
+  { 
+    id: 7, title: 'Clash of Codes', date: 'Aug 2025', type: 'past', cat: 'Competition', att: 300, 
+    img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=700&q=75', 
+    desc: 'Our flagship competitive programming contest featuring algorithmic challenges and data structure puzzles.', 
+    loc: 'All Computer Labs', color: 'rgba(34,197,94,.13)' 
+  },
+  { 
+    id: 8, title: 'Blockchain Series', date: 'Sept 2025', type: 'past', cat: 'Seminar', att: 140, 
+    img: 'Events/Blockchain2.jpeg', 
+    desc: 'A multi-part series exploring Web 3.0, smart contracts, and decentralized application architecture.', 
+    loc: 'Seminar Hall A', color: 'rgba(124,58,237,.15)' 
+  },
+
+  // ── UPCOMING EVENTS ──
+  { 
+    id: 9, title: 'Agentic AI Workshop', date: 'Coming Soon', type: 'upcoming', cat: 'Workshop', att: null, 
+    img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=700&q=75', 
+    desc: 'Learn to build autonomous AI agents using modern LLM frameworks and orchestration tools.', 
+    loc: 'Computer Lab 1', color: 'rgba(6,182,212,.15)' 
+  },
+  { 
+    id: 10, title: 'AI Prompt Engineering Challenge', date: 'Coming Soon', type: 'upcoming', cat: 'Competition', att: null, 
+    img: 'https://images.unsplash.com/photo-1655393008682-2d1bc89a4244?w=700&q=75', 
+    desc: 'Test your skills in crafting the perfect prompts to solve complex tasks using advanced AI models.', 
+    loc: 'Online', color: 'rgba(236,72,153,.13)' 
+  },
+  { 
+    id: 11, title: 'Project Competition', date: 'Coming Soon', type: 'upcoming', cat: 'Competition', att: null, 
+    img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=75', 
+    desc: 'Showcase your final year or mini-projects to a panel of industry experts and win exciting prizes.', 
+    loc: 'Main Auditorium', color: 'rgba(245,158,11,.13)' 
+  },
+  { 
+    id: 12, title: 'UI/UX Design Challenge', date: 'Coming Soon', type: 'upcoming', cat: 'Competition', att: null, 
+    img: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=700&q=75', 
+    desc: 'Redesign a real-world application interface focusing on user experience, accessibility, and modern aesthetics.', 
+    loc: 'Design Lab', color: 'rgba(124,58,237,.15)' 
+  }
 ];
 
 const COMMITTEE = [
-  { name:'Arjun Joshi',    role:'Chairperson',       dept:'BE Comp Engg',  ini:'AJ', g:'from-cyan-400 to-blue-600',   gc:'linear-gradient(135deg,#22d3ee,#2563eb)' },
-  { name:'Priya Shenoy',   role:'Vice Chairperson',  dept:'BE Comp Engg',  ini:'PS', g:'from-violet-500 to-purple-600', gc:'linear-gradient(135deg,#8b5cf6,#9333ea)' },
-  { name:'Rohan Kulkarni', role:'Secretary',          dept:'BE IT',         ini:'RK', g:'from-amber-500 to-orange-500', gc:'linear-gradient(135deg,#f59e0b,#f97316)' },
-  { name:'Sneha Mishra',   role:'Joint Secretary',    dept:'BE Comp Engg',  ini:'SM', g:'from-pink-500 to-rose-500',   gc:'linear-gradient(135deg,#ec4899,#f43f5e)' },
-  { name:'Karan Patil',    role:'Treasurer',          dept:'BE IT',         ini:'KP', g:'from-green-500 to-emerald-600', gc:'linear-gradient(135deg,#22c55e,#059669)' },
-  { name:'Nisha Tiwari',   role:'Technical Lead',     dept:'TE Comp Engg',  ini:'NT', g:'from-cyan-400 to-teal-600',   gc:'linear-gradient(135deg,#22d3ee,#0d9488)' },
-  { name:'Mihir Ghosh',    role:'Events Head',        dept:'TE IT',         ini:'MG', g:'from-indigo-500 to-violet-500', gc:'linear-gradient(135deg,#6366f1,#8b5cf6)' },
-  { name:'Diya Varma',     role:'PR & Marketing',     dept:'TE Comp Engg',  ini:'DV', g:'from-rose-500 to-pink-600',   gc:'linear-gradient(135deg,#f43f5e,#ec4899)' },
+  { name: 'Aditi Shanbhag', role: 'Chairperson', dept: 'TE Comps', img: 'Team/aditi.jpg' },
+  { name: 'Swaroop Kapte', role: 'Vice Chairperson', dept: 'TE Comps', img: 'Team/swaroop.jpg' },
+  { name: 'Sanvi Kakule', role: 'Secretary', dept: 'TE IT', img: 'Team/sanvi.png' },
+  { name: 'Sakshi Rane', role: 'Joint Secretary', dept: 'SE AI&DS', img: 'Team/sakshi.jpeg' }
 ];
 
 const NOTICES = [
   { id:1, title:'Membership Registration for 2025–26 is now OPEN', date:'March 10, 2025', type:'success', isNew:true },
-  { id:2, title:'HackTerna 2025 team registration closes March 18 — secure your slot now', date:'March 8, 2025', type:'warn', isNew:false },
-  { id:3, title:'AWS Workshop seats limited to 60 — register via Google Form link in bio', date:'March 5, 2025', type:'info', isNew:false },
-  { id:4, title:'CSI Newsletter Vol. 4 published — check your email or members portal', date:'Feb 28, 2025', type:'def', isNew:false },
-  { id:5, title:'Project Expo abstract submission extended to March 20', date:'Feb 22, 2025', type:'def', isNew:false },
-  { id:6, title:'Congratulations HackTerna 2024 winners — certificates distributed March 1', date:'Feb 15, 2025', type:'success', isNew:false },
+  { id:2, title:'Agentic AI - Workshop 2026 registration closes March 21 — secure your slot now', date:'March 15, 2025', type:'warn', isNew:false },
 ];
 
 const CAROUSEL = [
-  { url:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80', cap:'HackTerna 2024', sub:'90 teams · 24 hours · ₹1L in prizes' },
-  { url:'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&q=80', cap:'Cloud Computing Workshop', sub:'200+ attendees · AWS Academy credits' },
-  { url:'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1400&q=80', cap:'Industry Seminar Series', sub:'Top engineers · Real-world insights' },
-  { url:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1400&q=80', cap:'Full-Stack Bootcamp', sub:'React · Node · MongoDB · Deployment' },
-  { url:'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1400&q=80', cap:'ML Workshop 2024', sub:'200 students · Real-world datasets' },
+  { url: 'Events/CSI Team 2025-2026.jpeg', cap: 'CSI Team 2025 - 2026', sub: 'Meet the new team members' },
+  { url: 'Events/Agentic AI.jpg', cap: 'Agentic AI Seminar', sub: '200+ participants · 4 hours · Industry experts' }, 
+  { url: 'Events/Blockchain.jpeg', cap: 'Web 3', sub: '250+ attendees · Academic credits' },
+  { url: 'Events/Blockchain2.jpeg', cap: 'Blockchain', sub: '300+ participants · Real-world challenges' },
+  { url: 'Events/github.jpeg', cap: 'Github Workshop', sub: 'Learn version control and collaboration' },
+  { url: 'Events/LinkedIn & Resume Building.jpeg', cap: 'LinkedIn and Resume building', sub: '200+ participants · Career guidance' },
+  { url: 'Events/Redbull.jpeg', cap: 'Redbull Event', sub: 'Exciting activities and competitions' },
 ];
 
 /* ═══════════════════════════════════════════════════
    ICONS (inline SVG)
-═══════════════════════════════════════════════════ */
+═════════════════════════════════════════════════ */
 const Icon = ({ d, size=16, color='currentColor', strokeWidth=2 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
     {Array.isArray(d) ? d.map((p,i)=><path key={i} d={p}/>) : <path d={d}/>}
@@ -296,8 +357,10 @@ function Navbar({ onLogout, onMembership, onSection }) {
       <nav id="navbar" className={scrolled?'scrolled':''} style={{background: scrolled ? undefined : 'transparent'}}>
         <div className="inner" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:64}}>
           {/* Logo */}
-          <div style={{display:'flex',alignItems:'center',gap:10,cursor:'pointer'}} onClick={()=>go('home')}>
-            <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:13,boxShadow:'0 4px 16px rgba(6,182,212,.3)'}}>CSI</div>
+          <div className="logo" style={{display:'flex',alignItems:'center',gap:8,cursor:'pointer'}} onClick={()=>go('home')}>
+              <div style={{width:32,height:32,borderRadius:'50%',overflow:'hidden',background:'#fff',display:'flex',alignItems:'center',justifyContent:'center'}}>
+              <img src="csilogo.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              </div>
             <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.05rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
           </div>
 
@@ -437,20 +500,26 @@ function Footer() {
         <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:40,marginBottom:40}}>
           {/* Brand */}
           <div style={{gridColumn:'span 2'}}>
-            <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:14}}>
-              <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:13}}>CSI</div>
-              <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.05rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
-            </div>
+            <div className="logo" style={{display:'flex',alignItems:'center',gap:8,cursor:'pointer'}} onClick={()=>go('home')}>
+              <div style={{width:32,height:32,borderRadius:'50%',overflow:'hidden',background:'#fff',display:'flex',alignItems:'center',justifyContent:'center'}}>
+              <img src="csilogo.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              </div>
+            <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.05rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
+          </div>
             <p style={{color:'#475569',fontSize:'.85rem',fontWeight:300,lineHeight:1.7,maxWidth:260,marginBottom:16}}>
               Computer Society of India — Student Chapter at Terna Engineering College, Nerul. Empowering students through technology since 2013.
             </p>
             <div style={{display:'flex',gap:8}}>
-              {['IG','linkedin','github','youtube'].map(n=>(
-                <button key={n} className="glass" style={{width:34,height:34,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',color:'#64748b',cursor:'pointer',border:'1px solid rgba(255,255,255,.09)',transition:'all .2s'}}
+              {[
+                { n: 'IG', url: 'https://www.instagram.com/csi_terna' },
+                { n: 'linkedin', url: 'https://in.linkedin.com/company/csi-terna' },
+                 // Add your Youtube link here later
+              ].map(({ n, url }) => (
+                <a key={n} href={url} target="_blank" rel="noopener noreferrer" className="glass" style={{width:34,height:34,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',color:'#64748b',cursor:'pointer',border:'1px solid rgba(255,255,255,.09)',transition:'all .2s', textDecoration: 'none'}}
                   onMouseEnter={e=>{e.currentTarget.style.color='#22d3ee';e.currentTarget.style.borderColor='rgba(6,182,212,.3)'}}
                   onMouseLeave={e=>{e.currentTarget.style.color='#64748b';e.currentTarget.style.borderColor='rgba(255,255,255,.09)'}}>
                   <Ico name={n} size={14}/>
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -468,13 +537,17 @@ function Footer() {
           <div>
             <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.75rem',color:'#fff',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:14}}>Contact</p>
             {[
-              {ic:'mail',c:'#22d3ee',t:'csi@terna.ac.in'},
-              {ic:'phone',c:'#a78bfa',t:'+91 22 2770 1234'},
-              {ic:'map',c:'#f87171',t:'Plot 12, Sector 22, Nerul, Navi Mumbai – 400706'},
-            ].map(({ic,c,t})=>(
-              <div key={t} style={{display:'flex',alignItems:'flex-start',gap:8,marginBottom:12}}>
-                <Ico name={ic} size={13} color={c}/> <span style={{color:'#475569',fontSize:'.82rem',fontWeight:300,lineHeight:1.5}}>{t}</span>
-              </div>
+              {ic:'mail',c:'#22d3ee',t:'csi@terna.ac.in', link:'mailto:csi@terna.ac.in'},
+              {ic:'phone',c:'#a78bfa',t:'+91 9326151339', link:'tel:+919326151339'},
+              {ic:'phone',c:'#a78bfa',t:'+91 77387 04925', link:'tel:+917738704925'},
+              {ic:'map',c:'#f87171',t:'Plot 12, Sector 22, Nerul, Navi Mumbai – 400706', link:'https://www.google.com/maps/search/?api=1&query=Terna+Engineering+College+Nerul'},
+            ].map(({ic,c,t,link})=>(
+              <a key={t} href={link} target={ic==='map' ? '_blank' : '_self'} rel="noopener noreferrer" style={{display:'flex',alignItems:'flex-start',gap:8,marginBottom:12, textDecoration:'none'}}
+                onMouseEnter={e=>e.currentTarget.lastChild.style.color='#22d3ee'}
+                onMouseLeave={e=>e.currentTarget.lastChild.style.color='#475569'}>
+                <div style={{marginTop:2}}><Ico name={ic} size={13} color={c}/></div> 
+                <span style={{color:'#475569',fontSize:'.82rem',fontWeight:300,lineHeight:1.5, transition:'color .2s'}}>{t}</span>
+              </a>
             ))}
           </div>
         </div>
@@ -523,10 +596,12 @@ function LandingPage({ onLogin }) {
 
       {/* Nav */}
       <nav style={{position:'relative',zIndex:10,display:'flex',alignItems:'center',justifyContent:'space-between',padding:'18px 32px'}}>
-        <div style={{display:'flex',alignItems:'center',gap:10}}>
-          <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:13,boxShadow:'0 4px 16px rgba(6,182,212,.3)'}}>CSI</div>
-          <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.1rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
-        </div>
+        <div className="logo" style={{display:'flex',alignItems:'center',gap:8,cursor:'pointer'}} onClick={()=>go('home')}>
+              <div style={{width:32,height:32,borderRadius:'50%',overflow:'hidden',background:'#fff',display:'flex',alignItems:'center',justifyContent:'center'}}>
+              <img src="csilogo.jpg" alt="" style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              </div>
+            <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.05rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
+          </div>
         <div style={{display:'flex',gap:8}}>
           <button onClick={()=>{setTab('login');setErr('')}} className={tab==='login'?'glass':''} style={{padding:'8px 18px',borderRadius:12,border:'none',color:tab==='login'?'#fff':'#64748b',cursor:'pointer',fontFamily:'DM Sans',fontSize:'.85rem',background:tab==='login'?undefined:'transparent',transition:'all .2s'}}>Sign In</button>
           <button onClick={()=>{setTab('signup');setErr('')}} className="btn-pr" style={{padding:'8px 18px',borderRadius:12,fontSize:'.85rem'}}>Join CSI</button>
@@ -565,13 +640,32 @@ function LandingPage({ onLogin }) {
           </div>
 
           {/* RIGHT — Auth Card */}
-          <div className="glass-strong" style={{borderRadius:28,padding:36}}>
+          <div className="glass-strong" style={{borderRadius:50,padding:36}}>
             {/* Logo */}
-            <div style={{textAlign:'center',marginBottom:28}}>
-              <div className="glow-c" style={{width:60,height:60,borderRadius:18,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:20,margin:'0 auto 12px'}}>CSI</div>
-              <h2 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.4rem',color:'#fff',marginBottom:4}}>{tab==='login'?'Welcome back':'Join CSI Terna'}</h2>
-              <p style={{color:'#64748b',fontSize:'.82rem',fontWeight:300}}>{tab==='login'?'Sign in to the member portal':'Create your account to get started'}</p>
-            </div>
+          <div style={{ textAlign: 'center', marginBottom: 40 }}>
+  {/* Logo Wrapper */}
+  <div style={{ 
+      width: 60, 
+      height: 60, 
+      borderRadius: '100%', 
+      overflow: 'hidden', 
+      background: '#fff', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      margin: '0 auto 16px auto' 
+    }}>
+    <img src="csilogo.jpg" alt="CSI Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+  </div>
+
+  {/* Text Content */}
+  <h2 style={{ fontFamily: 'Outfit', fontWeight: 700, fontSize: '1.4rem', color: '#fff', marginBottom: 4 }}>
+    {tab === 'login' ? 'Welcome back' : 'Join CSI Terna'}
+  </h2>
+  <p style={{ color: '#64748b', fontSize: '.82rem', fontWeight: 300 }}>
+    {tab === 'login' ? 'Sign in to the member portal' : 'Create your account to get started'}
+  </p>
+</div>
 
             {/* Tabs */}
             <div className="glass" style={{display:'flex',borderRadius:14,padding:4,marginBottom:20}}>
@@ -721,7 +815,7 @@ function HomePage({ onLogout, onMembership }) {
             Shaping the <span className="text-grad">Digital Future</span> at Terna
           </h1>
           <p style={{color:'#64748b',fontSize:'1.1rem',fontWeight:300,maxWidth:560,lineHeight:1.8,marginBottom:28}}>
-            Computer Society of India — your gateway to workshops, hackathons, industry connections, and a community of 500+ passionate technologists.
+            Computer Society of India — your gateway to workshops, hackathons, industry connections, and a community of passionate technologists.
           </p>
           <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:40}}>
             <button className="btn-pr" onClick={onMembership} style={{padding:'13px 28px',borderRadius:12,fontSize:'.95rem',display:'flex',alignItems:'center',gap:6}}>
@@ -829,36 +923,58 @@ function HomePage({ onLogout, onMembership }) {
 
           {/* Faculty */}
           <GlassCard style={{padding:'24px',display:'flex',alignItems:'center',gap:20,maxWidth:620,margin:'0 auto 32px',flexWrap:'wrap'}}>
-            <div className="glow-c" style={{width:80,height:80,borderRadius:20,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Outfit',fontWeight:800,fontSize:'1.6rem',color:'#fff',flexShrink:0}}>DR</div>
+            <div className="glow-c" style={{width:80,height:80,borderRadius:20,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Outfit',fontWeight:800,fontSize:'1.6rem',color:'#fff',flexShrink:0}}>Head</div>
             <>
-             <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
               <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Dnyaneshwar Thombare</h3>
               <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Professor — Dept. of Computer Engineering</p>
               <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>15+ years · ML & Distributed Systems · CSI guide since 2020</p>
-
-              <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+              
+              <div>
               <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Preeti Patil</h3>
               <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Associate Professor — Dept. of Computer Engineering</p>
               <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>15+ years · ML & Distributed Systems · CSI guide since 2018</p>
-            
              <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+
               <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Snehal Mane</h3>
               <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Associate Professor — Dept. of AI & DS</p>
               <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>5+ years of experience · CSI guide since 2025</p>
-
               <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+
               <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Sejal Jadhav</h3>
               <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Associate Professor — Dept. of Information Technology</p>
               <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>10+ Years of Experience · CSI guide since 2026</p>
+              <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+              </div>
             </>
             
           </GlassCard>
 
-          {/* Grid */}
+          {/* Grid - FIX IS HERE */}
           <div className="grid-4">
-            {COMMITTEE.map(({name,role,dept,ini,gc})=>(
+            {COMMITTEE.map(({name, role, dept, img}) => (
               <GlassCard key={name} style={{padding:'20px 16px',textAlign:'center'}}>
-                <div style={{width:52,height:52,borderRadius:14,background:gc,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Outfit',fontWeight:700,fontSize:'1rem',color:'#fff',margin:'0 auto 12px'}}>{ini}</div>
+                <div style={{
+                  width: 64, 
+                  height: 64, 
+                  borderRadius: 16, 
+                  background: '#1e293b', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  margin: '0 auto 12px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.05)'
+                }}>
+                  <img 
+                    src={img} 
+                    alt={name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.parentNode.innerHTML = `<span style="color:#fff;font-family:'Outfit';font-weight:700;font-size:1.2rem">${name.charAt(0)}</span>`;
+                    }}
+                  />
+                </div>
                 <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.9rem',color:'#fff',marginBottom:3}}>{name}</p>
                 <p style={{color:'#22d3ee',fontSize:'.75rem',fontWeight:500,marginBottom:3}}>{role}</p>
                 <p style={{color:'#475569',fontSize:'.72rem',fontWeight:300}}>{dept}</p>
@@ -965,20 +1081,30 @@ function HomePage({ onLogout, onMembership }) {
     </div>
   );
 }
-
 /* ═══════════════════════════════════════════════════
    MEMBERSHIP PAGE
 ═══════════════════════════════════════════════════ */
 function MembershipPage({ onBack, onLogout }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({name:'',email:'',dept:'',year:'',roll:''});
-  const set = (k,v) => setForm(f=>({...f,[k]:v}));
+  
+  // Updated State to match your new requirements
+  const [form, setForm] = useState({
+    name: '', 
+    dob: '', 
+    email: '', 
+    mobile: '', 
+    year: '', 
+    screenshot: null 
+  });
+  
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   const submit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(()=>{setLoading(false);setSubmitted(true);},900);
+    // In a real app, you'd use FormData here to upload the image file to a server
+    setTimeout(() => { setLoading(false); setSubmitted(true); }, 1500);
   };
 
   const benefits = [
@@ -992,10 +1118,11 @@ function MembershipPage({ onBack, onLogout }) {
     {ic:'news',t:'Monthly Newsletter',d:'Exclusive digest: tech news, event recaps & member spotlights.',g:'linear-gradient(135deg,#f43f5e,#ec4899)'},
   ];
 
+  // Updated steps to reflect the online payment workflow
   const steps = [
-    {n:'01',t:'Fill the Registration Form',d:'Complete the form below with your name, department, year, and roll number.'},
-    {n:'02',t:'Pay the Membership Fee',d:'Pay ₹200 via UPI (PhonePe / GPay) or cash at the CSI desk in Computer Engineering dept.'},
-    {n:'03',t:'Receive Your Member ID',d:'Your CSI ID card & digital certificate will be emailed within 3 working days. Welcome aboard!'},
+    {n:'01',t:'Fill the Registration Form',d:'Complete the form below with your personal details and academic year.'},
+    {n:'02',t:'Make the Payment',d:'Scan the QR code to pay ₹200 securely via any UPI app (GPay, PhonePe, Paytm).'},
+    {n:'03',t:'Upload & Submit',d:'Attach the payment screenshot in the form and submit. Your CSI ID will be emailed to you!'},
   ];
 
   const features = ['Access to all CSI Terna events','Official CSI Member ID card','Certificates for every event attended','National CSI network access','Industry mentorship sessions','Exclusive learning resources & discounts','Monthly newsletter subscription','Priority project team placement'];
@@ -1063,7 +1190,7 @@ function MembershipPage({ onBack, onLogout }) {
             <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(6,182,212,.07),rgba(124,58,237,.06))'}}/>
             <div style={{position:'relative'}}>
               <div style={{display:'inline-block',padding:'3px 12px',borderRadius:50,background:'linear-gradient(90deg,rgba(6,182,212,.2),rgba(124,58,237,.18))',border:'1px solid rgba(6,182,212,.28)',color:'#67e8f9',fontSize:'.72rem',fontWeight:600,marginBottom:16}}>Academic Year 2025–26</div>
-              <div style={{fontFamily:'Outfit',fontWeight:900,fontSize:'3.2rem',color:'#fff',marginBottom:4}}>₹200</div>
+              <div style={{fontFamily:'Outfit',fontWeight:900,fontSize:'3.2rem',color:'#fff',marginBottom:4}}>₹350</div>
               <p style={{color:'#475569',fontSize:'.88rem',fontWeight:300,marginBottom:24}}>per academic year</p>
               <ul style={{listStyle:'none',marginBottom:28}}>
                 {features.map(f=>(
@@ -1084,45 +1211,72 @@ function MembershipPage({ onBack, onLogout }) {
                   <Ico name="check" size={27} color="#4ade80"/>
                 </div>
                 <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.3rem',color:'#fff',marginBottom:8}}>Registration Submitted!</h3>
-                <p style={{color:'#475569',fontWeight:300,fontSize:'.9rem',maxWidth:260,lineHeight:1.7}}>Your application has been received. Pay ₹200 at the CSI desk — Member ID arrives in 3 working days.</p>
+                <p style={{color:'#475569',fontWeight:300,fontSize:'.9rem',maxWidth:280,lineHeight:1.7}}>Your application and payment screenshot have been received. We will verify your payment and email your CSI Member ID within 3 working days.</p>
                 <button className="btn-gl" onClick={onBack} style={{marginTop:24,padding:'10px 24px',borderRadius:12,fontSize:'.9rem'}}>Back to Home</button>
               </div>
             ) : (
               <>
                 <h3 style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.1rem',marginBottom:20}}>Register Now</h3>
                 <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:14}}>
-                  <div>
-                    <label className="form-label">Full Name *</label>
-                    <input className="glass-input" value={form.name} onChange={e=>set('name',e.target.value)} placeholder="Your full name" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
-                  </div>
-                  <div>
-                    <label className="form-label">College Email *</label>
-                    <input type="email" className="glass-input" value={form.email} onChange={e=>set('email',e.target.value)} placeholder="your@terna.ac.in" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
-                  </div>
+                  
+                  {/* Row 1: Name & DOB */}
                   <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
                     <div>
-                      <label className="form-label">Department *</label>
-                      <select className="glass-input" value={form.dept} onChange={e=>set('dept',e.target.value)} required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}>
-                        <option value="">Select</option>
-                        {['Computer Engg','Information Technology','Electronics & CS','Mechanical Engg'].map(d=><option key={d}>{d}</option>)}
-                      </select>
+                      <label className="form-label">Full Name *</label>
+                      <input className="glass-input" value={form.name} onChange={e=>set('name',e.target.value)} placeholder="Your full name" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
                     </div>
                     <div>
-                      <label className="form-label">Year *</label>
-                      <select className="glass-input" value={form.year} onChange={e=>set('year',e.target.value)} required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}>
-                        <option value="">Select</option>
-                        {['FE','SE','TE','BE'].map(y=><option key={y}>{y}</option>)}
-                      </select>
+                      <label className="form-label">Date of Birth *</label>
+                      <input type="date" className="glass-input" value={form.dob} onChange={e=>set('dob',e.target.value)} required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem', color: form.dob ? '#fff' : '#94a3b8'}}/>
                     </div>
                   </div>
-                  <div>
-                    <label className="form-label">Roll Number *</label>
-                    <input className="glass-input" value={form.roll} onChange={e=>set('roll',e.target.value)} placeholder="e.g. 2201234" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+
+                  {/* Row 2: Email & Mobile */}
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+                    <div>
+                      <label className="form-label">Personal Email *</label>
+                      <input type="email" className="glass-input" value={form.email} onChange={e=>set('email',e.target.value)} placeholder="your@email.com" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                    </div>
+                    <div>
+                      <label className="form-label">Mobile No. *</label>
+                      <input type="tel" className="glass-input" value={form.mobile} onChange={e=>set('mobile',e.target.value)} placeholder="10-digit number" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                    </div>
                   </div>
-                  <button type="submit" disabled={loading} className="btn-pr" style={{padding:'13px',borderRadius:12,fontSize:'.95rem',display:'flex',alignItems:'center',justifyContent:'center',gap:8,marginTop:4}}>
-                    {loading?<div style={{width:18,height:18,border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',borderRadius:'50%',animation:'spin 1s linear infinite'}}/>:<>Submit Registration <Ico name="arrowR" size={14}/></>}
+
+                  {/* Row 3: Year of Study */}
+                  <div>
+                    <label className="form-label">Year of Studying *</label>
+                    <select className="glass-input" value={form.year} onChange={e=>set('year',e.target.value)} required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}>
+                      <option value="">Select Year</option>
+                      {['First Year (FE)','Second Year (SE)','Third Year (TE)','Final Year (BE)'].map(y=><option key={y} value={y}>{y}</option>)}
+                    </select>
+                  </div>
+
+                  {/* ── QR CODE & PAYMENT UPLOAD SECTION ── */}
+                  <div style={{background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:16, padding:20, marginTop:8, textAlign:'center'}}>
+                    <p style={{fontFamily:'Outfit', fontWeight:700, color:'#fff', fontSize:'.95rem', marginBottom:12}}>Scan to Pay ₹200</p>
+                    
+                    {/* The QR Image */}
+                    <div style={{width:160, height:160, background:'#fff', margin:'0 auto 12px', borderRadius:12, padding:10, display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden'}}>
+                       {/* Change 'payment-qr.jpg' to the actual name of your QR code image file */}
+                       <img src="payment-qr.jpg" alt="UPI QR Code" style={{width:'100%', height:'100%', objectFit:'contain'}} onError={(e) => { e.target.style.display='none'; e.target.parentNode.innerHTML='<span style="color:#000;font-size:0.8rem;font-weight:bold">Upload your<br/>QR here</span>'; }} />
+                    </div>
+                    
+                    {/* UPI ID Text */}
+                    <p style={{color:'#94a3b8', fontSize:'.85rem', marginBottom:20}}>UPI ID: <strong style={{color:'#fff'}}>csiterna@upi</strong></p>
+                    
+                    {/* File Upload Input */}
+                    <div style={{textAlign:'left'}}>
+                      <label className="form-label" style={{color:'#22d3ee'}}>Upload Payment Screenshot *</label>
+                      <input type="file" accept="image/*" onChange={e=>set('screenshot', e.target.files[0])} required className="glass-input" style={{width:'100%',padding:'10px',borderRadius:12,fontSize:'.85rem', background:'rgba(0,0,0,0.2)'}}/>
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button type="submit" disabled={loading} className="btn-pr" style={{padding:'13px',borderRadius:12,fontSize:'.95rem',display:'flex',alignItems:'center',justifyContent:'center',gap:8,marginTop:10}}>
+                    {loading ? <div style={{width:18,height:18,border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',borderRadius:'50%',animation:'spin 1s linear infinite'}}/> : <>Submit Registration <Ico name="arrowR" size={14}/></>}
                   </button>
-                  <p style={{textAlign:'center',color:'#334155',fontSize:'.75rem'}}>Pay ₹200 at the CSI desk after submitting this form</p>
+
                 </form>
               </>
             )}
