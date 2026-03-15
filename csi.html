@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CSI Terna – Computer Society of India, TEC</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#050818;color:#e2e8f0;overflow-x:hidden;min-height:100vh}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#050818}
+::-webkit-scrollbar-thumb{background:rgba(6,182,212,.4);border-radius:2px}
+
+/* ── MESH BG ── */
+.mesh-bg{
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 10%,rgba(6,182,212,.13) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 85%,rgba(124,58,237,.12) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 60% at 50% 50%,rgba(14,165,233,.04) 0%,transparent 65%),
+    #050818
+}
+
+/* ── GLASS ── */
+.glass{background:rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12)}
+.glass-strong{background:rgba(255,255,255,.09);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,.17)}
+.glass-dark{background:rgba(5,8,24,.7);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.08)}
+.glass-card{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.09);transition:all .3s cubic-bezier(.4,0,.2,1)}
+.glass-card:hover{background:rgba(255,255,255,.09);border-color:rgba(6,182,212,.32);transform:translateY(-4px);box-shadow:0 20px 60px rgba(6,182,212,.09)}
+.glass-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#e2e8f0;font-family:'DM Sans',sans-serif;transition:all .25s ease;outline:none}
+.glass-input:focus{border-color:rgba(6,182,212,.5);background:rgba(255,255,255,.09);box-shadow:0 0 0 3px rgba(6,182,212,.1)}
+.glass-input::placeholder{color:rgba(148,163,184,.45)}
+select.glass-input option{background:#0f172a}
+
+/* ── ORBS ── */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.orb-c{background:radial-gradient(circle,rgba(6,182,212,.22),transparent 70%)}
+.orb-p{background:radial-gradient(circle,rgba(124,58,237,.18),transparent 70%)}
+.orb-b{background:radial-gradient(circle,rgba(59,130,246,.15),transparent 70%)}
+
+/* ── TYPOGRAPHY ── */
+.font-display{font-family:'Outfit',sans-serif}
+.section-title{font-family:'Outfit',sans-serif;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+
+/* ── GRADIENTS ── */
+.text-grad{background:linear-gradient(135deg,#67e8f9 0%,#22d3ee 40%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.bg-grad{background:linear-gradient(135deg,#06b6d4,#7c3aed)}
+
+/* ── BUTTONS ── */
+.btn-gl{background:rgba(6,182,212,.15);backdrop-filter:blur(12px);border:1px solid rgba(6,182,212,.4);color:#22d3ee;transition:all .25s ease;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer}
+.btn-gl:hover{background:rgba(6,182,212,.25);border-color:rgba(6,182,212,.7);box-shadow:0 0 24px rgba(6,182,212,.28);transform:translateY(-1px)}
+.btn-pr{background:linear-gradient(135deg,rgba(6,182,212,.85),rgba(124,58,237,.75));backdrop-filter:blur(12px);border:1px solid rgba(6,182,212,.45);color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;transition:all .25s ease;cursor:pointer}
+.btn-pr:hover{background:linear-gradient(135deg,#06b6d4,rgba(124,58,237,.95));box-shadow:0 0 32px rgba(6,182,212,.38),0 8px 24px rgba(0,0,0,.28);transform:translateY(-2px)}
+
+/* ── DIVIDER ── */
+.hdiv{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.11),transparent)}
+
+/* ── BADGES ── */
+.badge-up{background:rgba(34,197,94,.13);border:1px solid rgba(34,197,94,.33);color:#4ade80}
+.badge-pa{background:rgba(148,163,184,.09);border:1px solid rgba(148,163,184,.22);color:#94a3b8}
+.badge-li{background:rgba(239,68,68,.13);border:1px solid rgba(239,68,68,.38);color:#f87171}
+
+/* ── NAVBAR ── */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:9999;transition:all .3s ease}
+#navbar.scrolled{background:rgba(5,8,24,.82);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.07);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+
+/* ── CAROUSEL ── */
+.car-img{transition:opacity .4s ease,transform .4s ease}
+
+/* ── ANIMATIONS ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.animate-spin{animation:spin 1s linear infinite}
+.animate-pulse{animation:pulse 2s ease-in-out infinite}
+.fade-up{animation:fadeUp .65s ease both}
+
+/* ── SECTION BASE ── */
+.section-wrap{padding:80px 0}
+.inner{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ── GRID HELPERS ── */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(max-width:1024px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
+
+/* ── EVENTS FILTER ── */
+.tab-btn{padding:8px 20px;border-radius:12px;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s ease;border:none;color:#94a3b8;background:transparent;font-family:'DM Sans',sans-serif}
+.tab-btn:hover{color:#e2e8f0}
+.tab-btn.active{background:linear-gradient(135deg,rgba(6,182,212,.22),rgba(124,58,237,.2));color:#fff;border:1px solid rgba(255,255,255,.1)}
+.tab-btn:not(.active){border:1px solid transparent}
+
+/* ── NOTICE ITEMS ── */
+.notice-item{display:flex;align-items:flex-start;gap:14px;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.05);transition:background .2s;cursor:pointer}
+.notice-item:last-child{border-bottom:none}
+.notice-item:hover{background:rgba(255,255,255,.02)}
+
+/* ── MOBILE MENU ── */
+.mob-menu{position:fixed;top:64px;left:0;right:0;z-index:9998;display:none}
+.mob-menu.open{display:block}
+
+/* ── FORM ── */
+.form-label{display:block;font-size:.75rem;font-weight:500;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.07em}
+
+/* ── GLOW ── */
+.glow-c{box-shadow:0 0 28px rgba(6,182,212,.22),0 0 56px rgba(6,182,212,.09)}
+
+/* ── RESPONSIVE NAV ── */
+@media(max-width:768px){.desk-nav{display:none!important}.ham-btn{display:flex!important}}
+.ham-btn{display:none}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useCallback } = React;
+
+/* ═══════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════ */
+const EVENTS = [
+  { id:1, title:'HackTerna 2024 — 24-Hour Hackathon', date:'Sep 14–15, 2024', type:'past', cat:'Hackathon', att:320, img:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=700&q=75', desc:'90 teams competed across AI, Web3 & HealthTech tracks. Prizes worth ₹1,00,000 distributed to top 5 teams.', loc:'Seminar Hall A', color:'rgba(6,182,212,.15)' },
+  { id:2, title:'Machine Learning with Python Workshop', date:'Nov 12, 2024', type:'past', cat:'Workshop', att:200, img:'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=700&q=75', desc:'Hands-on ML workshop covering Scikit-learn, pandas & real-world datasets. 200+ students participated.', loc:'Computer Lab 1', color:'rgba(124,58,237,.15)' },
+  { id:3, title:'Blockchain & DApps Industry Talk', date:'Oct 5, 2024', type:'past', cat:'Seminar', att:180, img:'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=700&q=75', desc:'Industry speaker from Polygon demystified Web3 concepts with live DApp demos and career guidance.', loc:'Auditorium', color:'rgba(245,158,11,.13)' },
+  { id:4, title:'HackTerna 2025 — 36-Hour Build Sprint', date:'Mar 22–23, 2025', type:'upcoming', cat:'Hackathon', att:null, img:'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=700&q=75', desc:'4 tracks: AI/ML, Web3, HealthTech, EdTech. Prizes worth ₹1,50,000. Open to all Terna students.', loc:'Seminar Hall A & B', color:'rgba(34,197,94,.13)' },
+  { id:5, title:'AWS Cloud Fundamentals Workshop', date:'Apr 5, 2025', type:'upcoming', cat:'Workshop', att:null, img:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=700&q=75', desc:'Hands-on EC2, S3, Lambda & RDS. All participants receive AWS Academy credits on completion. 60 seats.', loc:'Lab 302', color:'rgba(6,182,212,.13)' },
+  { id:6, title:'AI in Production — Panel Discussion', date:'Apr 18, 2025', type:'upcoming', cat:'Seminar', att:null, img:'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=700&q=75', desc:'Panel of ML engineers from top tech firms covering model deployment, MLOps & careers in AI.', loc:'Auditorium', color:'rgba(236,72,153,.13)' },
+  { id:7, title:'Full-Stack Dev Bootcamp — React & Node', date:'May 2–4, 2025', type:'upcoming', cat:'Workshop', att:null, img:'https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=700&q=75', desc:'3-day intensive: React, Node.js, MongoDB, Vercel deployment. Limited to 60 participants.', loc:'Computer Lab 1', color:'rgba(99,102,241,.15)' },
+  { id:8, title:'Code Sprint — Competitive Programming', date:'May 15, 2025', type:'current', cat:'Competition', att:140, img:'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=700&q=75', desc:'Live 3-hour algorithmic contest — problems from beginner to expert level. Register on CodeChef.', loc:'Online + Campus', color:'rgba(239,68,68,.13)' },
+];
+
+const COMMITTEE = [
+  { name:'Arjun Joshi',    role:'Chairperson',       dept:'BE Comp Engg',  ini:'AJ', g:'from-cyan-400 to-blue-600',   gc:'linear-gradient(135deg,#22d3ee,#2563eb)' },
+  { name:'Priya Shenoy',   role:'Vice Chairperson',  dept:'BE Comp Engg',  ini:'PS', g:'from-violet-500 to-purple-600', gc:'linear-gradient(135deg,#8b5cf6,#9333ea)' },
+  { name:'Rohan Kulkarni', role:'Secretary',          dept:'BE IT',         ini:'RK', g:'from-amber-500 to-orange-500', gc:'linear-gradient(135deg,#f59e0b,#f97316)' },
+  { name:'Sneha Mishra',   role:'Joint Secretary',    dept:'BE Comp Engg',  ini:'SM', g:'from-pink-500 to-rose-500',   gc:'linear-gradient(135deg,#ec4899,#f43f5e)' },
+  { name:'Karan Patil',    role:'Treasurer',          dept:'BE IT',         ini:'KP', g:'from-green-500 to-emerald-600', gc:'linear-gradient(135deg,#22c55e,#059669)' },
+  { name:'Nisha Tiwari',   role:'Technical Lead',     dept:'TE Comp Engg',  ini:'NT', g:'from-cyan-400 to-teal-600',   gc:'linear-gradient(135deg,#22d3ee,#0d9488)' },
+  { name:'Mihir Ghosh',    role:'Events Head',        dept:'TE IT',         ini:'MG', g:'from-indigo-500 to-violet-500', gc:'linear-gradient(135deg,#6366f1,#8b5cf6)' },
+  { name:'Diya Varma',     role:'PR & Marketing',     dept:'TE Comp Engg',  ini:'DV', g:'from-rose-500 to-pink-600',   gc:'linear-gradient(135deg,#f43f5e,#ec4899)' },
+];
+
+const NOTICES = [
+  { id:1, title:'Membership Registration for 2025–26 is now OPEN', date:'March 10, 2025', type:'success', isNew:true },
+  { id:2, title:'HackTerna 2025 team registration closes March 18 — secure your slot now', date:'March 8, 2025', type:'warn', isNew:false },
+  { id:3, title:'AWS Workshop seats limited to 60 — register via Google Form link in bio', date:'March 5, 2025', type:'info', isNew:false },
+  { id:4, title:'CSI Newsletter Vol. 4 published — check your email or members portal', date:'Feb 28, 2025', type:'def', isNew:false },
+  { id:5, title:'Project Expo abstract submission extended to March 20', date:'Feb 22, 2025', type:'def', isNew:false },
+  { id:6, title:'Congratulations HackTerna 2024 winners — certificates distributed March 1', date:'Feb 15, 2025', type:'success', isNew:false },
+];
+
+const CAROUSEL = [
+  { url:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80', cap:'HackTerna 2024', sub:'90 teams · 24 hours · ₹1L in prizes' },
+  { url:'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&q=80', cap:'Cloud Computing Workshop', sub:'200+ attendees · AWS Academy credits' },
+  { url:'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1400&q=80', cap:'Industry Seminar Series', sub:'Top engineers · Real-world insights' },
+  { url:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1400&q=80', cap:'Full-Stack Bootcamp', sub:'React · Node · MongoDB · Deployment' },
+  { url:'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1400&q=80', cap:'ML Workshop 2024', sub:'200 students · Real-world datasets' },
+];
+
+/* ═══════════════════════════════════════════════════
+   ICONS (inline SVG)
+═══════════════════════════════════════════════════ */
+const Icon = ({ d, size=16, color='currentColor', strokeWidth=2 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+    {Array.isArray(d) ? d.map((p,i)=><path key={i} d={p}/>) : <path d={d}/>}
+  </svg>
+);
+const ICONS = {
+  menu:      'M4 6h16M4 12h16M4 18h16',
+  x:         'M18 6L6 18M6 6l12 12',
+  logout:    ['M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4','M16 17l5-5-5-5','M21 12H9'],
+  chevR:     'M9 18l6-6-6-6',
+  chevL:     'M15 18l-6-6 6-6',
+  chevD:     'M6 9l6 6 6-6',
+  check:     'M20 6L9 17l-5-5',
+  eye:       ['M1 12s4-8 11-8 11 8 11 8','circle cx=12 cy=12 r=3'],
+  eyeOff:   ['M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24','M1 1l22 22'],
+  users:     ['M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2','circle cx=9 cy=7 r=4','M23 21v-2a4 4 0 00-3-3.87','M16 3.13a4 4 0 010 7.75'],
+  zap:       'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+  trophy:    ['M6 9H3l1.5 7.5L8 19h8l3.5-2.5L21 9h-3','M6 9V6a6 6 0 0112 0v3'],
+  globe:     ['circle cx=12 cy=12 r=10','line x1=2 y1=12 x2=22 y2=12','path d=M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z'],
+  mail:      ['rect x=2 y=4 width=20 height=16 rx=2','path d=M22 7l-10 7L2 7'],
+  map:       ['M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z','circle cx=12 cy=10 r=3'],
+  phone:     'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.63 19.79 19.79 0 01.12 1a2 2 0 012-2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 6a16 16 0 006.29 6.29l.38-.38a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z',
+  award:     ['circle cx=12 cy=8 r=6','path d=M15.477 12.89L17 22l-5-3-5 3 1.523-9.11'],
+  book:      ['path d=M4 19.5A2.5 2.5 0 016.5 17H20','path d=M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z'],
+  shield:    'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  cpu:       ['rect x=4 y=4 width=16 height=16 rx=2','rect x=9 y=9 width=6 height=6','line x1=9 y1=1 x2=9 y2=4','line x1=15 y1=1 x2=15 y2=4','line x1=9 y1=20 x2=9 y2=23','line x1=15 y1=20 x2=15 y2=23','line x1=20 y1=9 x2=23 y2=9','line x1=20 y1=14 x2=23 y2=14','line x1=1 y1=9 x2=4 y2=9','line x1=1 y1=14 x2=4 y2=14'],
+  grad:      ['path d=M22 10v6M2 10l10-5 10 5-10 5z','path d=M6 12v5c3 3 9 3 12 0v-5'],
+  briefcase: ['rect x=2 y=7 width=20 height=14 rx=2','path d=M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2'],
+  code:      'M16 18l6-6-6-6M8 6l-6 6 6 6',
+  news:      ['path d=M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z','polyline points=14,2 14,8 20,8','line x1=16 y1=13 x2=8 y2=13','line x1=16 y1=17 x2=8 y2=17','polyline points=10,9 9,9 8,9'],
+  arrowR:    'M5 12h14M12 5l7 7-7 7',
+  bell:      ['path d=M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9','path d=M13.73 21a2 2 0 01-3.46 0'],
+  info:      ['circle cx=12 cy=12 r=10','line x1=12 y1=16 x2=12 y2=12','line x1=12 y1=8 x2=12.01 y2=8'],
+  alert:     ['path d=M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z','line x1=12 y1=9 x2=12 y2=13','line x1=12 y1=17 x2=12.01 y2=17'],
+  IG:        ['rect x=2 y=2 width=20 height=20 rx=5','path d=M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z','line x1=17.5 y1=6.5 x2=17.51 y2=6.5'],
+  linkedin:  ['path d=M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z','rect x=2 y=9 width=4 height=12','circle cx=4 cy=4 r=2'],
+  github:    'M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22',
+  youtube:   ['path d=M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.41 19.1C5.12 19.56 12 19.56 12 19.56s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z','polygon points=9.75,15.02 15.5,11.75 9.75,8.48 9.75,15.02'],
+};
+
+function Ico({ name, size=16, color='currentColor', sw=2 }) {
+  const d = ICONS[name];
+  if (!d) return null;
+  const paths = Array.isArray(d) ? d : [d];
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0}}>
+      {paths.map((p,i) => {
+        if (p.startsWith('circle')) {
+          const m = p.match(/cx=([\d.]+) cy=([\d.]+) r=([\d.]+)/);
+          if (m) return <circle key={i} cx={m[1]} cy={m[2]} r={m[3]}/>;
+        }
+        if (p.startsWith('rect')) {
+          const m = p.match(/x=([\d.]+) y=([\d.]+) width=([\d.]+) height=([\d.]+)(?: rx=([\d.]+))?/);
+          if (m) return <rect key={i} x={m[1]} y={m[2]} width={m[3]} height={m[4]} rx={m[5]||0}/>;
+        }
+        if (p.startsWith('line')) {
+          const m = p.match(/x1=([\d.]+) y1=([\d.]+) x2=([\d.]+) y2=([\d.]+)/);
+          if (m) return <line key={i} x1={m[1]} y1={m[2]} x2={m[3]} y2={m[4]}/>;
+        }
+        if (p.startsWith('polyline')) {
+          const m = p.match(/points=([^/]+)/);
+          if (m) return <polyline key={i} points={m[1]}/>;
+        }
+        if (p.startsWith('polygon')) {
+          const m = p.match(/points=([^/]+)/);
+          if (m) return <polygon key={i} points={m[1]}/>;
+        }
+        return <path key={i} d={p}/>;
+      })}
+    </svg>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════════════════ */
+function Eyebrow({ text }) {
+  return <p style={{fontSize:'.72rem',fontWeight:600,color:'#22d3ee',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:'10px'}}>{text}</p>;
+}
+
+function SectionTitle({ children, center }) {
+  return (
+    <h2 className="section-title" style={{fontSize:'clamp(1.7rem,3.5vw,2.5rem)',color:'#fff',marginBottom:'10px',textAlign:center?'center':'left'}}>
+      {children}
+    </h2>
+  );
+}
+
+function GlassCard({ children, style, onClick }) {
+  return (
+    <div className="glass-card" style={{borderRadius:18,...style}} onClick={onClick}>
+      {children}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════════ */
+function Navbar({ onLogout, onMembership, onSection }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [mob, setMob] = useState(false);
+  const [active, setActive] = useState('home');
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll);
+    const ids = ['home','about','events','team','notices','contact'];
+    const obs = ids.map(id => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setActive(id); }, { threshold:.3 });
+      o.observe(el);
+      return o;
+    });
+    return () => { window.removeEventListener('scroll', onScroll); obs.forEach(o=>o?.disconnect()); };
+  }, []);
+
+  const go = (id) => { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); setMob(false); };
+
+  const links = ['Home','About','Events','Team','Notices','Contact'];
+
+  return (
+    <>
+      <nav id="navbar" className={scrolled?'scrolled':''} style={{background: scrolled ? undefined : 'transparent'}}>
+        <div className="inner" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:64}}>
+          {/* Logo */}
+          <div style={{display:'flex',alignItems:'center',gap:10,cursor:'pointer'}} onClick={()=>go('home')}>
+            <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:13,boxShadow:'0 4px 16px rgba(6,182,212,.3)'}}>CSI</div>
+            <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.05rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
+          </div>
+
+          {/* Desktop links */}
+          <div className="desk-nav" style={{display:'flex',alignItems:'center',gap:2}}>
+            {links.map(l=>(
+              <button key={l} onClick={()=>go(l.toLowerCase())}
+                style={{background:active===l.toLowerCase()?'rgba(6,182,212,.1)':'transparent',border:'none',color:active===l.toLowerCase()?'#22d3ee':'#94a3b8',padding:'7px 14px',borderRadius:10,cursor:'pointer',fontFamily:'DM Sans',fontSize:'.875rem',transition:'all .2s',fontWeight:active===l.toLowerCase()?500:400}}
+                onMouseEnter={e=>{if(active!==l.toLowerCase())e.target.style.color='#e2e8f0'}}
+                onMouseLeave={e=>{if(active!==l.toLowerCase())e.target.style.color='#94a3b8'}}>
+                {l}
+              </button>
+            ))}
+          </div>
+
+          {/* Right actions */}
+          <div className="desk-nav" style={{display:'flex',alignItems:'center',gap:8}}>
+            <button className="btn-pr" onClick={onMembership} style={{padding:'8px 18px',borderRadius:10,fontSize:'.82rem',display:'flex',alignItems:'center',gap:5}}>
+              Membership <Ico name="chevR" size={12}/>
+            </button>
+            <button onClick={onLogout} style={{display:'flex',alignItems:'center',gap:5,padding:'7px 12px',borderRadius:10,background:'transparent',border:'none',color:'#64748b',cursor:'pointer',fontSize:'.82rem',fontFamily:'DM Sans',transition:'all .2s'}}
+              onMouseEnter={e=>{e.currentTarget.style.color='#f87171';e.currentTarget.style.background='rgba(239,68,68,.08)'}}
+              onMouseLeave={e=>{e.currentTarget.style.color='#64748b';e.currentTarget.style.background='transparent'}}>
+              <Ico name="logout" size={13}/> Sign Out
+            </button>
+          </div>
+
+          {/* Hamburger */}
+          <button className="ham-btn" onClick={()=>setMob(!mob)} style={{background:'transparent',border:'none',color:'#94a3b8',cursor:'pointer',padding:6}}>
+            <Ico name={mob?'x':'menu'} size={22}/>
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu */}
+      <div className={`mob-menu glass-dark ${mob?'open':''}`} style={{padding:'12px 16px 16px'}}>
+        {links.map(l=>(
+          <button key={l} onClick={()=>go(l.toLowerCase())} style={{width:'100%',textAlign:'left',padding:'12px 16px',borderRadius:12,background:'transparent',border:'none',color:'#cbd5e1',fontFamily:'DM Sans',fontSize:'.9rem',cursor:'pointer',display:'block',transition:'all .2s'}}
+            onMouseEnter={e=>{e.target.style.background='rgba(255,255,255,.05)'}}
+            onMouseLeave={e=>{e.target.style.background='transparent'}}>
+            {l}
+          </button>
+        ))}
+        <div style={{borderTop:'1px solid rgba(255,255,255,.07)',marginTop:8,paddingTop:8,display:'flex',flexDirection:'column',gap:8}}>
+          <button className="btn-pr" onClick={()=>{onMembership();setMob(false)}} style={{padding:'12px',borderRadius:12,fontSize:'.9rem',width:'100%'}}>Membership</button>
+          <button onClick={onLogout} style={{padding:'12px',borderRadius:12,background:'rgba(239,68,68,.1)',border:'1px solid rgba(239,68,68,.2)',color:'#f87171',fontFamily:'DM Sans',fontSize:'.9rem',cursor:'pointer',width:'100%'}}>Sign Out</button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   PHOTO CAROUSEL
+═══════════════════════════════════════════════════ */
+function PhotoCarousel() {
+  const [cur, setCur] = useState(0);
+  const [fading, setFading] = useState(false);
+
+  const go = useCallback((idx) => {
+    if (fading) return;
+    setFading(true);
+    setTimeout(() => { setCur((idx + CAROUSEL.length) % CAROUSEL.length); setFading(false); }, 350);
+  }, [fading]);
+
+  useEffect(() => { const t = setInterval(() => go(cur+1), 5000); return ()=>clearInterval(t); }, [cur, go]);
+
+  return (
+    <div style={{position:'relative',borderRadius:20,overflow:'hidden',height:400,background:'#0f172a'}}>
+      <img src={CAROUSEL[cur].url} alt={CAROUSEL[cur].cap}
+        style={{width:'100%',height:'100%',objectFit:'cover',opacity:fading?0:1,transition:'opacity .35s ease',transform:`scale(${fading?.97:1})`,transitionProperty:'opacity,transform'}}/>
+      <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.2) 50%,transparent 100%)'}}/>
+      <div style={{position:'absolute',bottom:0,left:0,right:0,padding:'24px'}}>
+        <div className="glass-dark" style={{display:'inline-block',borderRadius:14,padding:'12px 18px',maxWidth:340}}>
+          <p style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.05rem',color:'#fff',marginBottom:3}}>{CAROUSEL[cur].cap}</p>
+          <p style={{fontSize:'.82rem',color:'#94a3b8',fontWeight:300}}>{CAROUSEL[cur].sub}</p>
+        </div>
+      </div>
+      {/* Arrows */}
+      {[{dir:-1,side:'left'},{dir:1,side:'right'}].map(({dir,side})=>(
+        <button key={side} onClick={()=>go(cur+dir)} className="glass" style={{position:'absolute',top:'50%',transform:'translateY(-50%)',[side]:14,width:38,height:38,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',cursor:'pointer',border:'1px solid rgba(255,255,255,.18)',background:'rgba(255,255,255,.1)'}}>
+          <Ico name={dir===-1?'chevL':'chevR'} size={16}/>
+        </button>
+      ))}
+      {/* Dots */}
+      <div style={{position:'absolute',bottom:14,left:'50%',transform:'translateX(-50%)',display:'flex',gap:6,zIndex:5}}>
+        {CAROUSEL.map((_,i)=>(
+          <button key={i} onClick={()=>go(i)} style={{borderRadius:9999,border:'none',cursor:'pointer',transition:'all .3s',background:i===cur?'#22d3ee':'rgba(255,255,255,.35)',width:i===cur?20:7,height:7}}/>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   EVENT CARD
+═══════════════════════════════════════════════════ */
+function EventCard({ ev }) {
+  const badge = ev.type==='past' ? {cls:'badge-pa',lbl:'Past'} : ev.type==='current' ? {cls:'badge-li',lbl:'🔴 Live'} : {cls:'badge-up',lbl:'Upcoming'};
+  const catColor = {Hackathon:'#22d3ee',Workshop:'#a78bfa',Seminar:'#fbbf24',Competition:'#f87171',Talk:'#4ade80'}[ev.cat]||'#94a3b8';
+  return (
+    <GlassCard style={{overflow:'hidden',cursor:'pointer'}}>
+      <div style={{position:'relative',height:170,overflow:'hidden',background:'#0f172a'}}>
+        <img src={ev.img} alt={ev.title} style={{width:'100%',height:'100%',objectFit:'cover',transition:'transform .5s ease'}}
+          onMouseEnter={e=>e.target.style.transform='scale(1.06)'} onMouseLeave={e=>e.target.style.transform='scale(1)'}/>
+        <div style={{position:'absolute',inset:0,background:`linear-gradient(135deg,${ev.color},transparent 60%)`}}/>
+        <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(0,0,0,.5),transparent)'}}/>
+        <div style={{position:'absolute',top:10,left:10,display:'flex',gap:6}}>
+          <span className={badge.cls} style={{fontSize:'.7rem',fontWeight:600,padding:'3px 10px',borderRadius:50}}>{badge.lbl}</span>
+          <span className="glass" style={{fontSize:'.7rem',fontWeight:500,padding:'3px 10px',borderRadius:50,color:catColor,border:`1px solid ${catColor}33`}}>{ev.cat}</span>
+        </div>
+      </div>
+      <div style={{padding:'16px 18px'}}>
+        <h3 style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.97rem',color:'#fff',marginBottom:8,lineHeight:1.35,display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{ev.title}</h3>
+        <p style={{color:'#64748b',fontSize:'.82rem',fontWeight:300,lineHeight:1.6,marginBottom:12,display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical',overflow:'hidden'}}>{ev.desc}</p>
+        <div style={{display:'flex',flexDirection:'column',gap:5}}>
+          {[{ic:'mail',c:'#22d3ee',t:ev.date},{ic:'map',c:'#a78bfa',t:ev.loc},{ic:'users',c:'#4ade80',t:ev.att?`${ev.att} attendees`:null}].filter(x=>x.t).map(({ic,c,t})=>(
+            <div key={t} style={{display:'flex',alignItems:'center',gap:6,fontSize:'.75rem',color:'#64748b'}}>
+              <Ico name={ic} size={11} color={c}/> {t}
+            </div>
+          ))}
+        </div>
+      </div>
+    </GlassCard>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+function Footer() {
+  const go = id => document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+  return (
+    <footer id="contact" style={{position:'relative',paddingTop:64,paddingBottom:32,borderTop:'1px solid rgba(255,255,255,.07)'}}>
+      <div style={{position:'absolute',inset:0,background:'linear-gradient(to bottom,transparent,rgba(0,0,0,.4))',pointerEvents:'none'}}/>
+      <div className="inner" style={{position:'relative'}}>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:40,marginBottom:40}}>
+          {/* Brand */}
+          <div style={{gridColumn:'span 2'}}>
+            <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:14}}>
+              <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:13}}>CSI</div>
+              <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.05rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
+            </div>
+            <p style={{color:'#475569',fontSize:'.85rem',fontWeight:300,lineHeight:1.7,maxWidth:260,marginBottom:16}}>
+              Computer Society of India — Student Chapter at Terna Engineering College, Nerul. Empowering students through technology since 2013.
+            </p>
+            <div style={{display:'flex',gap:8}}>
+              {['IG','linkedin','github','youtube'].map(n=>(
+                <button key={n} className="glass" style={{width:34,height:34,borderRadius:10,display:'flex',alignItems:'center',justifyContent:'center',color:'#64748b',cursor:'pointer',border:'1px solid rgba(255,255,255,.09)',transition:'all .2s'}}
+                  onMouseEnter={e=>{e.currentTarget.style.color='#22d3ee';e.currentTarget.style.borderColor='rgba(6,182,212,.3)'}}
+                  onMouseLeave={e=>{e.currentTarget.style.color='#64748b';e.currentTarget.style.borderColor='rgba(255,255,255,.09)'}}>
+                  <Ico name={n} size={14}/>
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Navigate */}
+          <div>
+            <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.75rem',color:'#fff',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:14}}>Navigate</p>
+            {['Home','About','Events','Team','Notices','Membership'].map(l=>(
+              <button key={l} onClick={()=>go(l.toLowerCase())} style={{display:'block',color:'#475569',fontSize:'.85rem',fontWeight:300,marginBottom:10,background:'transparent',border:'none',cursor:'pointer',fontFamily:'DM Sans',padding:0,transition:'color .2s'}}
+                onMouseEnter={e=>e.target.style.color='#22d3ee'} onMouseLeave={e=>e.target.style.color='#475569'}>
+                {l}
+              </button>
+            ))}
+          </div>
+          {/* Contact */}
+          <div>
+            <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.75rem',color:'#fff',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:14}}>Contact</p>
+            {[
+              {ic:'mail',c:'#22d3ee',t:'csi@terna.ac.in'},
+              {ic:'phone',c:'#a78bfa',t:'+91 22 2770 1234'},
+              {ic:'map',c:'#f87171',t:'Plot 12, Sector 22, Nerul, Navi Mumbai – 400706'},
+            ].map(({ic,c,t})=>(
+              <div key={t} style={{display:'flex',alignItems:'flex-start',gap:8,marginBottom:12}}>
+                <Ico name={ic} size={13} color={c}/> <span style={{color:'#475569',fontSize:'.82rem',fontWeight:300,lineHeight:1.5}}>{t}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="hdiv" style={{marginBottom:20}}/>
+        <div style={{display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:8}}>
+          <p style={{color:'#334155',fontSize:'.75rem'}}>© 2025 CSI Student Chapter — Terna Engineering College. All rights reserved.</p>
+          <p style={{color:'#334155',fontSize:'.75rem'}}>Built with <span style={{color:'#22d3ee'}}>passion</span> for technology</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   LANDING PAGE
+═══════════════════════════════════════════════════ */
+function LandingPage({ onLogin }) {
+  const [tab, setTab] = useState('login');
+  const [showPass, setShowPass] = useState(false);
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [name, setName] = useState('');
+  const [dept, setDept] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState('');
+
+  const submit = (e) => {
+    e.preventDefault(); setErr('');
+    if (!email || !pass) { setErr('Please fill in all required fields.'); return; }
+    if (tab === 'signup' && !name) { setErr('Please enter your full name.'); return; }
+    setLoading(true);
+    setTimeout(() => { setLoading(false); onLogin(); }, 1200);
+  };
+
+  const stats = [
+    {v:'500+',l:'Active Members',ic:'users',c:'#22d3ee'},
+    {v:'20+', l:'Events / Year',ic:'zap',   c:'#a78bfa'},
+    {v:'10+', l:'Years Legacy', ic:'trophy', c:'#fbbf24'},
+    {v:'15+', l:'Ind. Partners', ic:'globe', c:'#4ade80'},
+  ];
+
+  return (
+    <div className="mesh-bg" style={{minHeight:'100vh',display:'flex',flexDirection:'column',position:'relative',overflow:'hidden'}}>
+      <div className="orb orb-c" style={{width:600,height:600,top:-200,left:-150,opacity:.55}}/>
+      <div className="orb orb-p" style={{width:500,height:500,bottom:-150,right:-100,opacity:.45}}/>
+
+      {/* Nav */}
+      <nav style={{position:'relative',zIndex:10,display:'flex',alignItems:'center',justifyContent:'space-between',padding:'18px 32px'}}>
+        <div style={{display:'flex',alignItems:'center',gap:10}}>
+          <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:13,boxShadow:'0 4px 16px rgba(6,182,212,.3)'}}>CSI</div>
+          <span style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.1rem'}}>CSI <span style={{color:'#22d3ee'}}>Terna</span></span>
+        </div>
+        <div style={{display:'flex',gap:8}}>
+          <button onClick={()=>{setTab('login');setErr('')}} className={tab==='login'?'glass':''} style={{padding:'8px 18px',borderRadius:12,border:'none',color:tab==='login'?'#fff':'#64748b',cursor:'pointer',fontFamily:'DM Sans',fontSize:'.85rem',background:tab==='login'?undefined:'transparent',transition:'all .2s'}}>Sign In</button>
+          <button onClick={()=>{setTab('signup');setErr('')}} className="btn-pr" style={{padding:'8px 18px',borderRadius:12,fontSize:'.85rem'}}>Join CSI</button>
+        </div>
+      </nav>
+
+      {/* Body */}
+      <div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px 24px',position:'relative',zIndex:5}}>
+        <div style={{width:'100%',maxWidth:1100,display:'grid',gridTemplateColumns:'1fr 420px',gap:60,alignItems:'center'}}>
+
+          {/* LEFT */}
+          <div className="fade-up">
+            <div className="glass" style={{display:'inline-flex',alignItems:'center',gap:8,borderRadius:50,padding:'6px 16px',marginBottom:24}}>
+              <span style={{width:7,height:7,borderRadius:'50%',background:'#4ade80',animation:'pulse 2s ease-in-out infinite',display:'block'}}/>
+              <span style={{fontSize:'.72rem',fontWeight:500,color:'#cbd5e1',letterSpacing:'.08em',textTransform:'uppercase'}}>Terna Engineering College · Nerul</span>
+            </div>
+            <h1 className="section-title" style={{fontSize:'clamp(2.6rem,5.5vw,4.2rem)',color:'#fff',marginBottom:20}}>
+              Shape the<br/><span className="text-grad">Digital Future</span>
+            </h1>
+            <p style={{color:'#64748b',fontSize:'1.05rem',fontWeight:300,lineHeight:1.8,maxWidth:460,marginBottom:32}}>
+              Join CSI Terna — Terna's most active tech community driving workshops, hackathons, and industry connections for 500+ students.
+            </p>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,maxWidth:380}}>
+              {stats.map(({v,l,ic,c})=>(
+                <GlassCard key={l} style={{padding:'16px 18px',display:'flex',alignItems:'center',gap:12}}>
+                  <div style={{width:38,height:38,borderRadius:12,background:`${c}18`,border:`1px solid ${c}30`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                    <Ico name={ic} size={15} color={c}/>
+                  </div>
+                  <div>
+                    <div style={{fontFamily:'Outfit',fontWeight:800,fontSize:'1.3rem',color:'#fff'}}>{v}</div>
+                    <div style={{fontSize:'.72rem',color:'#64748b'}}>{l}</div>
+                  </div>
+                </GlassCard>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT — Auth Card */}
+          <div className="glass-strong" style={{borderRadius:28,padding:36}}>
+            {/* Logo */}
+            <div style={{textAlign:'center',marginBottom:28}}>
+              <div className="glow-c" style={{width:60,height:60,borderRadius:18,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontFamily:'Outfit',fontWeight:800,fontSize:20,margin:'0 auto 12px'}}>CSI</div>
+              <h2 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.4rem',color:'#fff',marginBottom:4}}>{tab==='login'?'Welcome back':'Join CSI Terna'}</h2>
+              <p style={{color:'#64748b',fontSize:'.82rem',fontWeight:300}}>{tab==='login'?'Sign in to the member portal':'Create your account to get started'}</p>
+            </div>
+
+            {/* Tabs */}
+            <div className="glass" style={{display:'flex',borderRadius:14,padding:4,marginBottom:20}}>
+              {['login','signup'].map(t=>(
+                <button key={t} onClick={()=>{setTab(t);setErr('')}} style={{flex:1,padding:'10px',borderRadius:10,border:tab===t?'1px solid rgba(255,255,255,.12)':'1px solid transparent',background:tab===t?'linear-gradient(135deg,rgba(6,182,212,.2),rgba(124,58,237,.18))':'transparent',color:tab===t?'#fff':'#64748b',fontFamily:'DM Sans',fontSize:'.85rem',fontWeight:500,cursor:'pointer',transition:'all .2s'}}>
+                  {t==='login'?'Sign In':'Sign Up'}
+                </button>
+              ))}
+            </div>
+
+            <form onSubmit={submit}>
+              {tab==='signup' && (
+                <div style={{marginBottom:14}}>
+                  <label className="form-label">Full Name</label>
+                  <input className="glass-input" value={name} onChange={e=>setName(e.target.value)} placeholder="Your full name" style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                </div>
+              )}
+              <div style={{marginBottom:14}}>
+                <label className="form-label">Email Address</label>
+                <input type="email" className="glass-input" value={email} onChange={e=>setEmail(e.target.value)} placeholder="your@terna.ac.in" style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+              </div>
+              <div style={{marginBottom:14}}>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
+                  <label className="form-label" style={{marginBottom:0}}>Password</label>
+                  {tab==='login' && <button type="button" style={{fontSize:'.75rem',color:'#22d3ee',background:'transparent',border:'none',cursor:'pointer',fontFamily:'DM Sans'}}>Forgot password?</button>}
+                </div>
+                <div style={{position:'relative'}}>
+                  <input type={showPass?'text':'password'} className="glass-input" value={pass} onChange={e=>setPass(e.target.value)} placeholder="••••••••" style={{width:'100%',padding:'12px 44px 12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                  <button type="button" onClick={()=>setShowPass(!showPass)} style={{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',background:'transparent',border:'none',color:'#64748b',cursor:'pointer'}}>
+                    <Ico name={showPass?'eyeOff':'eye'} size={15}/>
+                  </button>
+                </div>
+              </div>
+              {tab==='signup' && (
+                <div style={{marginBottom:14}}>
+                  <label className="form-label">Department</label>
+                  <select className="glass-input" value={dept} onChange={e=>setDept(e.target.value)} style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}>
+                    <option value="">Select department</option>
+                    {['Computer Engineering','Information Technology','Artificial Intelligence & Data Science'].map(d=><option key={d}>{d}</option>)}
+                  </select>
+                </div>
+              )}
+              {err && <div style={{padding:'10px 14px',borderRadius:10,background:'rgba(239,68,68,.1)',border:'1px solid rgba(239,68,68,.22)',color:'#f87171',fontSize:'.82rem',marginBottom:12}}>{err}</div>}
+              <button type="submit" disabled={loading} className="btn-pr" style={{width:'100%',padding:'13px',borderRadius:12,fontSize:'.95rem',marginTop:4,display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
+                {loading ? <div style={{width:18,height:18,border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',borderRadius:'50%',animation:'spin 1s linear infinite'}}/> : <>{tab==='login'?'Sign In':'Create Account'} <Ico name="chevR" size={14}/></>}
+              </button>
+            </form>
+
+            {/* Divider */}
+            <div style={{display:'flex',alignItems:'center',gap:10,margin:'18px 0'}}>
+              <div className="hdiv" style={{flex:1}}/><span style={{color:'#334155',fontSize:'.75rem'}}>or</span><div className="hdiv" style={{flex:1}}/>
+            </div>
+
+            {/* Google */}
+            <button className="glass" style={{width:'100%',padding:'12px',borderRadius:12,display:'flex',alignItems:'center',justifyContent:'center',gap:8,color:'#94a3b8',cursor:'pointer',fontSize:'.88rem',fontFamily:'DM Sans',transition:'all .2s'}}
+              onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,.09)'}
+              onMouseLeave={e=>e.currentTarget.style.background='rgba(255,255,255,.06)'}>
+              <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Continue with Google
+            </button>
+
+            <p style={{textAlign:'center',marginTop:16,fontSize:'.78rem',color:'#334155'}}>
+              {tab==='login'?"Don't have an account? ":"Already a member? "}
+              <button onClick={()=>{setTab(tab==='login'?'signup':'login');setErr('')}} style={{color:'#22d3ee',background:'transparent',border:'none',cursor:'pointer',fontFamily:'DM Sans',fontSize:'.78rem',fontWeight:500}}>
+                {tab==='login'?'Sign up':'Sign in'}
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style={{textAlign:'center',padding:'16px',position:'relative',zIndex:5}}>
+        <p style={{color:'#1e293b',fontSize:'.72rem'}}>© 2025 CSI Student Chapter · Terna Engineering College, Nerul, Navi Mumbai</p>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   HOME PAGE
+═══════════════════════════════════════════════════ */
+function HomePage({ onLogout, onMembership }) {
+  const [evFilter, setEvFilter] = useState('all');
+  const [nlEmail, setNlEmail] = useState('');
+  const [nlDone, setNlDone] = useState(false);
+  const [nlLoading, setNlLoading] = useState(false);
+  const [regForm, setRegForm] = useState({name:'',email:'',dept:'',year:'',roll:''});
+
+  const filtered = evFilter==='all' ? EVENTS : EVENTS.filter(e=>e.type===evFilter);
+
+  const nlSubmit = (e) => {
+    e.preventDefault();
+    if (!nlEmail.includes('@')) return;
+    setNlLoading(true);
+    setTimeout(() => { setNlLoading(false); setNlDone(true); }, 900);
+  };
+
+  const statsBar = [
+    {v:'500+',l:'Active Members',ic:'users',c:'#22d3ee'},
+    {v:'20+', l:'Events / Year',  ic:'zap',   c:'#a78bfa'},
+    {v:'10+', l:'Years Legacy',   ic:'trophy', c:'#fbbf24'},
+    {v:'15+', l:'Industry Partners',ic:'globe',c:'#4ade80'},
+  ];
+
+  const pillars = [
+    {ic:'zap',    t:'Technical Excellence', d:'Bootcamps, workshops & real engineering projects.', g:'linear-gradient(135deg,#06b6d4,#2563eb)'},
+    {ic:'users',  t:'Strong Community',     d:'Peers, alumni & industry professionals.', g:'linear-gradient(135deg,#8b5cf6,#9333ea)'},
+    {ic:'cpu',    t:'Innovation Culture',   d:'Hackathons & projects for meaningful impact.', g:'linear-gradient(135deg,#f59e0b,#f97316)'},
+    {ic:'grad',   t:'Career Readiness',     d:'Mentorship, mock interviews & industry sessions.', g:'linear-gradient(135deg,#22c55e,#059669)'},
+  ];
+
+  const benefits = [
+    {ic:'zap',t:'Free Event Access',d:'Priority access to all CSI workshops, bootcamps & hackathons.',g:'linear-gradient(135deg,#06b6d4,#2563eb)'},
+    {ic:'award',t:'CSI Certificates',d:'Verified certificates for every event — valued by top recruiters.',g:'linear-gradient(135deg,#8b5cf6,#9333ea)'},
+    {ic:'users',t:'Industry Mentorship',d:'Pair with engineers & alumni for career guidance.',g:'linear-gradient(135deg,#f59e0b,#f97316)'},
+    {ic:'book',t:'Learning Resources',d:'AWS/Coursera/Udemy discounts & members-only library.',g:'linear-gradient(135deg,#22c55e,#059669)'},
+    {ic:'globe',t:'National Network',d:'Access 70+ CSI chapters & national convention invites.',g:'linear-gradient(135deg,#ec4899,#f43f5e)'},
+    {ic:'briefcase',t:'Career Opportunities',d:'Internships, referrals & placement assistance.',g:'linear-gradient(135deg,#6366f1,#7c3aed)'},
+    {ic:'code',t:'Project Collaboration',d:'Cross-team projects, open-source & portfolio building.',g:'linear-gradient(135deg,#22d3ee,#0d9488)'},
+    {ic:'news',t:'Monthly Newsletter',d:'Tech news, event recaps & member spotlights.',g:'linear-gradient(135deg,#f43f5e,#ec4899)'},
+  ];
+
+  const noticeIcons = {success:{ic:'check',c:'#4ade80'},warn:{ic:'alert',c:'#fbbf24'},info:{ic:'info',c:'#22d3ee'},def:{ic:'bell',c:'#64748b'}};
+
+  const sec = (id, children, extra='') => (
+    <section id={id} className="section-wrap" style={{position:'relative'}}>
+      <div className="inner">{children}</div>
+    </section>
+  );
+
+  return (
+    <div className="mesh-bg" style={{minHeight:'100vh',position:'relative'}}>
+      <div className="orb orb-c" style={{width:500,height:500,top:-100,right:-100,opacity:.35}}/>
+      <div className="orb orb-p" style={{width:400,height:400,bottom:200,left:-100,opacity:.25}}/>
+
+      <Navbar onLogout={onLogout} onMembership={onMembership}/>
+
+      {/* ── HOME HERO ── */}
+      <section id="home" style={{paddingTop:100,paddingBottom:60,position:'relative'}}>
+        <div className="inner">
+          {/* Badge */}
+          <div className="glass" style={{display:'inline-flex',alignItems:'center',gap:8,borderRadius:50,padding:'6px 16px',marginBottom:24}}>
+            <span style={{width:7,height:7,borderRadius:'50%',background:'#4ade80',animation:'pulse 2s ease-in-out infinite',display:'block'}}/>
+            <span style={{fontSize:'.72rem',fontWeight:500,color:'#cbd5e1',letterSpacing:'.08em',textTransform:'uppercase'}}>Terna Engineering College · Nerul, Navi Mumbai</span>
+          </div>
+          {/* H1 */}
+          <h1 className="section-title" style={{fontSize:'clamp(2.6rem,6vw,5rem)',color:'#fff',marginBottom:18,maxWidth:800}}>
+            Shaping the <span className="text-grad">Digital Future</span> at Terna
+          </h1>
+          <p style={{color:'#64748b',fontSize:'1.1rem',fontWeight:300,maxWidth:560,lineHeight:1.8,marginBottom:28}}>
+            Computer Society of India — your gateway to workshops, hackathons, industry connections, and a community of 500+ passionate technologists.
+          </p>
+          <div style={{display:'flex',gap:12,flexWrap:'wrap',marginBottom:40}}>
+            <button className="btn-pr" onClick={onMembership} style={{padding:'13px 28px',borderRadius:12,fontSize:'.95rem',display:'flex',alignItems:'center',gap:6}}>
+              Become a Member <Ico name="chevR" size={13}/>
+            </button>
+            <button className="btn-gl" onClick={()=>document.getElementById('events')?.scrollIntoView({behavior:'smooth'})} style={{padding:'13px 28px',borderRadius:12,fontSize:'.95rem'}}>
+              Explore Events
+            </button>
+          </div>
+          {/* Stats */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:14,marginBottom:36}}>
+            {statsBar.map(({v,l,ic,c})=>(
+              <GlassCard key={l} style={{padding:'18px 14px',textAlign:'center'}}>
+                <Ico name={ic} size={18} color={c}/>&nbsp;
+                <div style={{fontFamily:'Outfit',fontWeight:800,fontSize:'1.5rem',color:'#fff',marginTop:6}}>{v}</div>
+                <div style={{fontSize:'.72rem',color:'#64748b',marginTop:3}}>{l}</div>
+              </GlassCard>
+            ))}
+          </div>
+          {/* Carousel */}
+          <PhotoCarousel/>
+        </div>
+      </section>
+
+      <div className="hdiv" style={{margin:'0 24px'}}/>
+
+      {/* ── ABOUT ── */}
+      <section id="about" className="section-wrap" style={{position:'relative'}}>
+        <div className="orb orb-b" style={{width:350,height:350,left:-80,top:0,opacity:.15}}/>
+        <div className="inner">
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:60,alignItems:'center'}}>
+            <div>
+              <Eyebrow text="Who we are"/>
+              <SectionTitle>More Than a<br/><span className="text-grad">Student Club</span></SectionTitle>
+              <p style={{color:'#475569',fontWeight:300,lineHeight:1.8,fontSize:'.95rem',marginBottom:12}}>
+                Established in 2013, CSI Terna is the official student chapter of the Computer Society of India — India's premier professional body for computing professionals. With 500+ active members across all years, we bridge the gap between classroom learning and real-world tech.
+              </p>
+              <p style={{color:'#475569',fontWeight:300,lineHeight:1.8,fontSize:'.95rem',marginBottom:22}}>
+                Affiliated with the national CSI network, our members access industry connections, exclusive resources, and opportunities across 70+ chapters nationwide.
+              </p>
+              <button className="btn-gl" onClick={()=>document.getElementById('team')?.scrollIntoView({behavior:'smooth'})} style={{padding:'10px 22px',borderRadius:12,fontSize:'.88rem',display:'inline-flex',alignItems:'center',gap:6}}>
+                Meet Our Team <Ico name="arrowR" size={13}/>
+              </button>
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+              {pillars.map(({ic,t,d,g})=>(
+                <GlassCard key={t} style={{padding:'20px 18px'}}>
+                  <div style={{width:40,height:40,borderRadius:12,background:g,opacity:.85,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:12}}>
+                    <Ico name={ic} size={16} color="#fff"/>
+                  </div>
+                  <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.9rem',color:'#fff',marginBottom:5}}>{t}</p>
+                  <p style={{color:'#475569',fontSize:'.78rem',fontWeight:300,lineHeight:1.6}}>{d}</p>
+                </GlassCard>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="hdiv" style={{margin:'0 24px'}}/>
+
+      {/* ── MEMBERSHIP CTA ── */}
+      <section id="membership-cta" className="section-wrap">
+        <div className="inner">
+          <div style={{position:'relative',borderRadius:24,padding:'60px 40px',textAlign:'center',overflow:'hidden',background:'linear-gradient(135deg,rgba(6,182,212,.08),rgba(124,58,237,.08))',border:'1px solid rgba(6,182,212,.18)'}}>
+            <div className="orb orb-c" style={{width:280,height:280,top:-60,left:-60,opacity:.2}}/>
+            <div className="orb orb-p" style={{width:280,height:280,bottom:-60,right:-60,opacity:.2}}/>
+            <div style={{position:'relative'}}>
+              <div className="glow-c" style={{width:56,height:56,borderRadius:16,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px'}}>
+                <Ico name="award" size={22} color="#fff"/>
+              </div>
+              <h2 className="section-title" style={{fontSize:'clamp(1.6rem,3vw,2.4rem)',color:'#fff',marginBottom:12,textAlign:'center'}}>
+                Ready to <span className="text-grad">Join CSI?</span>
+              </h2>
+              <p style={{color:'#64748b',fontWeight:300,maxWidth:440,margin:'0 auto 24px',lineHeight:1.8,fontSize:'.95rem'}}>
+                Unlock events, certifications, mentorship, and a network that accelerates your engineering career. All for just ₹350/year.
+              </p>
+              <div style={{display:'flex',flexWrap:'wrap',gap:20,justifyContent:'center',marginBottom:28}}>
+                {[{ic:'book',t:'Free event access'},{ic:'award',t:'CSI certificates'},{ic:'users',t:'Industry mentors'},{ic:'shield',t:'Career support'}].map(({ic,t})=>(
+                  <div key={t} style={{display:'flex',alignItems:'center',gap:6,color:'#94a3b8',fontSize:'.85rem'}}>
+                    <Ico name={ic} size={13} color='#22d3ee'/> {t}
+                  </div>
+                ))}
+              </div>
+              <button className="btn-pr" onClick={onMembership} style={{padding:'14px 36px',borderRadius:12,fontSize:'1rem',display:'inline-flex',alignItems:'center',gap:8}}>
+                View Membership Details <Ico name="chevR" size={15}/>
+              </button>
+              <p style={{color:'#334155',fontSize:'.75rem',marginTop:10}}>Only ₹200/year · Instant access · No hidden charges</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="hdiv" style={{margin:'0 24px'}}/>
+
+      {/* ── TEAM ── */}
+      <section id="team" className="section-wrap" style={{position:'relative'}}>
+        <div className="orb orb-c" style={{width:350,height:250,left:0,bottom:0,opacity:.12}}/>
+        <div className="inner">
+          <div style={{textAlign:'center',marginBottom:36}}>
+            <Eyebrow text="The people behind CSI"/>
+            <SectionTitle><span style={{display:'inline'}}>Our <span className="text-grad">Committee</span></span></SectionTitle>
+            <p style={{color:'#475569',fontWeight:300,maxWidth:440,margin:'8px auto 0',fontSize:'.95rem',lineHeight:1.7}}>Meet the students driving every event, workshop, and initiative at CSI Terna 2025.</p>
+          </div>
+
+          {/* Faculty */}
+          <GlassCard style={{padding:'24px',display:'flex',alignItems:'center',gap:20,maxWidth:620,margin:'0 auto 32px',flexWrap:'wrap'}}>
+            <div className="glow-c" style={{width:80,height:80,borderRadius:20,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Outfit',fontWeight:800,fontSize:'1.6rem',color:'#fff',flexShrink:0}}>DR</div>
+            <>
+             <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+              <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Dnyaneshwar Thombare</h3>
+              <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Professor — Dept. of Computer Engineering</p>
+              <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>15+ years · ML & Distributed Systems · CSI guide since 2020</p>
+
+              <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+              <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Preeti Patil</h3>
+              <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Associate Professor — Dept. of Computer Engineering</p>
+              <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>15+ years · ML & Distributed Systems · CSI guide since 2018</p>
+            
+             <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+              <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Snehal Mane</h3>
+              <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Associate Professor — Dept. of AI & DS</p>
+              <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>5+ years of experience · CSI guide since 2025</p>
+
+              <span style={{display:'inline-block',padding:'2px 10px',borderRadius:6,background:'rgba(6,182,212,.1)',border:'1px solid rgba(6,182,212,.2)',color:'#22d3ee',fontSize:'.72rem',fontWeight:600,marginBottom:8}}>Faculty Coordinator</span>
+              <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:3}}>Prof. Sejal Jadhav</h3>
+              <p style={{color:'#64748b',fontSize:'.85rem',fontWeight:300}}>Associate Professor — Dept. of Information Technology</p>
+              <p style={{color:'#334155',fontSize:'.78rem',marginTop:4,fontWeight:300}}>10+ Years of Experience · CSI guide since 2026</p>
+            </>
+            
+          </GlassCard>
+
+          {/* Grid */}
+          <div className="grid-4">
+            {COMMITTEE.map(({name,role,dept,ini,gc})=>(
+              <GlassCard key={name} style={{padding:'20px 16px',textAlign:'center'}}>
+                <div style={{width:52,height:52,borderRadius:14,background:gc,display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Outfit',fontWeight:700,fontSize:'1rem',color:'#fff',margin:'0 auto 12px'}}>{ini}</div>
+                <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.9rem',color:'#fff',marginBottom:3}}>{name}</p>
+                <p style={{color:'#22d3ee',fontSize:'.75rem',fontWeight:500,marginBottom:3}}>{role}</p>
+                <p style={{color:'#475569',fontSize:'.72rem',fontWeight:300}}>{dept}</p>
+              </GlassCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="hdiv" style={{margin:'0 24px'}}/>
+
+      {/* ── EVENTS ── */}
+      <section id="events" className="section-wrap" style={{position:'relative'}}>
+        <div className="orb orb-p" style={{width:400,height:300,right:-80,top:0,opacity:.12}}/>
+        <div className="inner">
+          <div style={{textAlign:'center',marginBottom:28}}>
+            <Eyebrow text="Community Programs"/>
+            <SectionTitle><span className="text-grad">Events</span> & Workshops</SectionTitle>
+            <p style={{color:'#475569',fontWeight:300,maxWidth:480,margin:'8px auto 0',fontSize:'.95rem',lineHeight:1.7}}>From hackathons to industry seminars — explore past, live, and upcoming programs.</p>
+          </div>
+
+          {/* Filter */}
+          <div style={{display:'flex',justifyContent:'center',marginBottom:32}}>
+            <div className="glass" style={{borderRadius:18,padding:6,display:'flex',gap:4,flexWrap:'wrap',justifyContent:'center'}}>
+              {['all','upcoming','current','past'].map(t=>(
+                <button key={t} className={`tab-btn ${evFilter===t?'active':''}`} onClick={()=>setEvFilter(t)}>
+                  {t==='all'?'All Events':t==='current'?'🔴 Live':t.charAt(0).toUpperCase()+t.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid-4" style={{gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))'}}>
+            {filtered.map(ev=><EventCard key={ev.id} ev={ev}/>)}
+          </div>
+          {filtered.length===0 && (
+            <div style={{textAlign:'center',padding:'60px 0',color:'#334155'}}>
+              <Ico name="zap" size={32} color="#1e293b"/>
+              <p style={{marginTop:12,fontSize:'.9rem'}}>No events in this category right now.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <div className="hdiv" style={{margin:'0 24px'}}/>
+
+      {/* ── NOTICES ── */}
+      <section id="notices" className="section-wrap" style={{position:'relative'}}>
+        <div className="orb orb-b" style={{width:300,height:300,right:0,top:0,opacity:.12}}/>
+        <div className="inner">
+          <Eyebrow text="Stay updated"/>
+          <SectionTitle>Notice <span className="text-grad">Board</span></SectionTitle>
+          <p style={{color:'#475569',fontWeight:300,fontSize:'.95rem',marginBottom:24,lineHeight:1.7}}>Latest announcements from the CSI Terna committee.</p>
+          <div className="glass" style={{borderRadius:18,overflow:'hidden'}}>
+            {NOTICES.map(({id,title,date,type,isNew})=>{
+              const {ic,c} = noticeIcons[type]||noticeIcons.def;
+              return (
+                <div key={id} className="notice-item">
+                  <Ico name={ic} size={15} color={c}/>
+                  <div style={{flex:1}}>
+                    <p style={{color:'#e2e8f0',fontSize:'.9rem',fontWeight:500,lineHeight:1.5}}>
+                      {title}
+                      {isNew && <span style={{marginLeft:8,padding:'1px 7px',borderRadius:4,background:'rgba(34,197,94,.12)',border:'1px solid rgba(34,197,94,.28)',color:'#4ade80',fontSize:'.65rem',fontWeight:700,verticalAlign:'middle'}}>NEW</span>}
+                    </p>
+                    <p style={{color:'#334155',fontSize:'.75rem',marginTop:3}}>{date}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <div className="hdiv" style={{margin:'0 24px'}}/>
+
+      {/* ── NEWSLETTER ── */}
+      <section className="section-wrap">
+        <div className="inner">
+          <GlassCard style={{padding:'60px 40px',textAlign:'center',maxWidth:680,margin:'0 auto',position:'relative',overflow:'hidden',background:'linear-gradient(135deg,rgba(6,182,212,.05),rgba(124,58,237,.05))'}}>
+            <div style={{position:'relative'}}>
+              <div style={{width:46,height:46,borderRadius:14,background:'linear-gradient(135deg,rgba(6,182,212,.25),rgba(124,58,237,.2))',border:'1px solid rgba(6,182,212,.25)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
+                <Ico name="mail" size={19} color="#22d3ee"/>
+              </div>
+              <h2 className="section-title" style={{fontSize:'clamp(1.5rem,2.5vw,2rem)',color:'#fff',marginBottom:8,textAlign:'center'}}>Get CSI Updates in Your Inbox</h2>
+              <p style={{color:'#475569',fontWeight:300,fontSize:'.9rem',marginBottom:24,lineHeight:1.7}}>Event reminders, registration links & community highlights — delivered straight to you.</p>
+              {nlDone ? (
+                <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8,color:'#4ade80',fontWeight:500}}>
+                  <Ico name="check" size={17} color="#4ade80"/> You're subscribed! Check your inbox for a confirmation.
+                </div>
+              ) : (
+                <form onSubmit={nlSubmit} style={{display:'flex',gap:10,maxWidth:420,margin:'0 auto',flexWrap:'wrap',justifyContent:'center'}}>
+                  <input type="email" className="glass-input" value={nlEmail} onChange={e=>setNlEmail(e.target.value)} placeholder="your@terna.ac.in" style={{flex:1,minWidth:200,padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                  <button type="submit" disabled={nlLoading} className="btn-pr" style={{padding:'12px 22px',borderRadius:12,fontSize:'.9rem',display:'flex',alignItems:'center',gap:6,whiteSpace:'nowrap'}}>
+                    {nlLoading?<div style={{width:15,height:15,border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',borderRadius:'50%',animation:'spin 1s linear infinite'}}/>:<><Ico name="mail" size={13}/> Subscribe</>}
+                  </button>
+                </form>
+              )}
+            </div>
+          </GlassCard>
+        </div>
+      </section>
+
+      <Footer/>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   MEMBERSHIP PAGE
+═══════════════════════════════════════════════════ */
+function MembershipPage({ onBack, onLogout }) {
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({name:'',email:'',dept:'',year:'',roll:''});
+  const set = (k,v) => setForm(f=>({...f,[k]:v}));
+
+  const submit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(()=>{setLoading(false);setSubmitted(true);},900);
+  };
+
+  const benefits = [
+    {ic:'zap',t:'Free Event Access',d:'Priority access to all CSI workshops, bootcamps & hackathons.',g:'linear-gradient(135deg,#06b6d4,#2563eb)'},
+    {ic:'award',t:'CSI Certificates',d:'Verified certificates for every event — valued by top recruiters.',g:'linear-gradient(135deg,#8b5cf6,#9333ea)'},
+    {ic:'users',t:'Industry Mentorship',d:'Pair with engineers & alumni for career guidance.',g:'linear-gradient(135deg,#f59e0b,#f97316)'},
+    {ic:'book',t:'Learning Resources',d:'AWS/Coursera/Udemy discounts & members-only resource library.',g:'linear-gradient(135deg,#22c55e,#059669)'},
+    {ic:'globe',t:'National Network',d:'Access 70+ CSI chapters & national convention invitations.',g:'linear-gradient(135deg,#ec4899,#f43f5e)'},
+    {ic:'briefcase',t:'Career Opportunities',d:'Internships, referrals & placement assistance via corporate network.',g:'linear-gradient(135deg,#6366f1,#7c3aed)'},
+    {ic:'code',t:'Project Collaboration',d:'Join project teams, open-source initiatives & build your portfolio.',g:'linear-gradient(135deg,#22d3ee,#0d9488)'},
+    {ic:'news',t:'Monthly Newsletter',d:'Exclusive digest: tech news, event recaps & member spotlights.',g:'linear-gradient(135deg,#f43f5e,#ec4899)'},
+  ];
+
+  const steps = [
+    {n:'01',t:'Fill the Registration Form',d:'Complete the form below with your name, department, year, and roll number.'},
+    {n:'02',t:'Pay the Membership Fee',d:'Pay ₹200 via UPI (PhonePe / GPay) or cash at the CSI desk in Computer Engineering dept.'},
+    {n:'03',t:'Receive Your Member ID',d:'Your CSI ID card & digital certificate will be emailed within 3 working days. Welcome aboard!'},
+  ];
+
+  const features = ['Access to all CSI Terna events','Official CSI Member ID card','Certificates for every event attended','National CSI network access','Industry mentorship sessions','Exclusive learning resources & discounts','Monthly newsletter subscription','Priority project team placement'];
+
+  return (
+    <div className="mesh-bg" style={{minHeight:'100vh',position:'relative'}}>
+      <div className="orb orb-c" style={{width:600,height:500,top:-200,right:-150,opacity:.28}}/>
+      <div className="orb orb-p" style={{width:500,height:400,bottom:-150,left:-100,opacity:.22}}/>
+      <Navbar onLogout={onLogout} onMembership={()=>{}}/>
+
+      <div className="inner" style={{paddingTop:88,paddingBottom:60}}>
+        {/* Back */}
+        <button onClick={onBack} style={{display:'flex',alignItems:'center',gap:7,color:'#64748b',background:'transparent',border:'none',cursor:'pointer',fontFamily:'DM Sans',fontSize:'.88rem',marginBottom:28,transition:'color .2s'}}
+          onMouseEnter={e=>e.currentTarget.style.color='#22d3ee'} onMouseLeave={e=>e.currentTarget.style.color='#64748b'}>
+          <Ico name="chevL" size={15}/> Back to Home
+        </button>
+
+        {/* Header */}
+        <div style={{textAlign:'center',marginBottom:52}}>
+          <Eyebrow text="Join the community"/>
+          <h1 className="section-title" style={{fontSize:'clamp(2rem,4vw,3.2rem)',color:'#fff',marginBottom:12,textAlign:'center'}}>
+            CSI <span className="text-grad">Membership</span>
+          </h1>
+          <p style={{color:'#64748b',fontWeight:300,maxWidth:500,margin:'0 auto',fontSize:'1rem',lineHeight:1.8}}>
+            One membership. Infinite opportunities. Join 500+ students building the future of technology at Terna.
+          </p>
+        </div>
+
+        {/* Benefits */}
+        <div style={{marginBottom:52}}>
+          <h2 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:20,textAlign:'center'}}>What You Unlock</h2>
+          <div className="grid-4">
+            {benefits.map(({ic,t,d,g})=>(
+              <GlassCard key={t} style={{padding:'20px 18px'}}>
+                <div style={{width:42,height:42,borderRadius:12,background:g,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:12,opacity:.9}}>
+                  <Ico name={ic} size={17} color="#fff"/>
+                </div>
+                <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.9rem',color:'#fff',marginBottom:5}}>{t}</p>
+                <p style={{color:'#475569',fontSize:'.78rem',fontWeight:300,lineHeight:1.6}}>{d}</p>
+              </GlassCard>
+            ))}
+          </div>
+        </div>
+
+        {/* Steps */}
+        <div style={{marginBottom:52}}>
+          <h2 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.2rem',color:'#fff',marginBottom:16,textAlign:'center'}}>How to Join — 3 Simple Steps</h2>
+          <div className="glass" style={{borderRadius:18,overflow:'hidden'}}>
+            {steps.map(({n,t,d})=>(
+              <div key={n} style={{display:'flex',alignItems:'flex-start',gap:18,padding:'20px 24px',borderBottom:'1px solid rgba(255,255,255,.05)'}}>
+                <div style={{width:40,height:40,borderRadius:12,background:'linear-gradient(135deg,#22d3ee,#7c3aed)',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'Outfit',fontWeight:800,color:'#fff',fontSize:'.85rem',flexShrink:0}}>{n}</div>
+                <div>
+                  <p style={{fontFamily:'Outfit',fontWeight:600,fontSize:'.95rem',color:'#fff',marginBottom:4}}>{t}</p>
+                  <p style={{color:'#475569',fontSize:'.85rem',fontWeight:300,lineHeight:1.6}}>{d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pricing + Form */}
+        <div className="grid-2">
+          {/* Pricing */}
+          <div className="glass-strong" style={{borderRadius:24,padding:36,position:'relative',overflow:'hidden',border:'1px solid rgba(6,182,212,.2)'}}>
+            <div style={{position:'absolute',inset:0,background:'linear-gradient(135deg,rgba(6,182,212,.07),rgba(124,58,237,.06))'}}/>
+            <div style={{position:'relative'}}>
+              <div style={{display:'inline-block',padding:'3px 12px',borderRadius:50,background:'linear-gradient(90deg,rgba(6,182,212,.2),rgba(124,58,237,.18))',border:'1px solid rgba(6,182,212,.28)',color:'#67e8f9',fontSize:'.72rem',fontWeight:600,marginBottom:16}}>Academic Year 2025–26</div>
+              <div style={{fontFamily:'Outfit',fontWeight:900,fontSize:'3.2rem',color:'#fff',marginBottom:4}}>₹200</div>
+              <p style={{color:'#475569',fontSize:'.88rem',fontWeight:300,marginBottom:24}}>per academic year</p>
+              <ul style={{listStyle:'none',marginBottom:28}}>
+                {features.map(f=>(
+                  <li key={f} style={{display:'flex',alignItems:'center',gap:10,marginBottom:10,color:'#94a3b8',fontSize:'.88rem'}}>
+                    <Ico name="check" size={13} color="#4ade80"/> {f}
+                  </li>
+                ))}
+              </ul>
+              <p style={{color:'#334155',fontSize:'.78rem',textAlign:'center'}}>Questions? Email <span style={{color:'#22d3ee'}}>csi@terna.ac.in</span></p>
+            </div>
+          </div>
+
+          {/* Form */}
+          <div className="glass" style={{borderRadius:24,padding:36}}>
+            {submitted ? (
+              <div style={{height:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',padding:'40px 0'}}>
+                <div style={{width:64,height:64,borderRadius:'50%',background:'rgba(34,197,94,.12)',border:'1px solid rgba(34,197,94,.28)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:18}}>
+                  <Ico name="check" size={27} color="#4ade80"/>
+                </div>
+                <h3 style={{fontFamily:'Outfit',fontWeight:700,fontSize:'1.3rem',color:'#fff',marginBottom:8}}>Registration Submitted!</h3>
+                <p style={{color:'#475569',fontWeight:300,fontSize:'.9rem',maxWidth:260,lineHeight:1.7}}>Your application has been received. Pay ₹200 at the CSI desk — Member ID arrives in 3 working days.</p>
+                <button className="btn-gl" onClick={onBack} style={{marginTop:24,padding:'10px 24px',borderRadius:12,fontSize:'.9rem'}}>Back to Home</button>
+              </div>
+            ) : (
+              <>
+                <h3 style={{fontFamily:'Outfit',fontWeight:700,color:'#fff',fontSize:'1.1rem',marginBottom:20}}>Register Now</h3>
+                <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:14}}>
+                  <div>
+                    <label className="form-label">Full Name *</label>
+                    <input className="glass-input" value={form.name} onChange={e=>set('name',e.target.value)} placeholder="Your full name" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                  </div>
+                  <div>
+                    <label className="form-label">College Email *</label>
+                    <input type="email" className="glass-input" value={form.email} onChange={e=>set('email',e.target.value)} placeholder="your@terna.ac.in" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                  </div>
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+                    <div>
+                      <label className="form-label">Department *</label>
+                      <select className="glass-input" value={form.dept} onChange={e=>set('dept',e.target.value)} required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}>
+                        <option value="">Select</option>
+                        {['Computer Engg','Information Technology','Electronics & CS','Mechanical Engg'].map(d=><option key={d}>{d}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="form-label">Year *</label>
+                      <select className="glass-input" value={form.year} onChange={e=>set('year',e.target.value)} required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}>
+                        <option value="">Select</option>
+                        {['FE','SE','TE','BE'].map(y=><option key={y}>{y}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="form-label">Roll Number *</label>
+                    <input className="glass-input" value={form.roll} onChange={e=>set('roll',e.target.value)} placeholder="e.g. 2201234" required style={{width:'100%',padding:'12px 16px',borderRadius:12,fontSize:'.9rem'}}/>
+                  </div>
+                  <button type="submit" disabled={loading} className="btn-pr" style={{padding:'13px',borderRadius:12,fontSize:'.95rem',display:'flex',alignItems:'center',justifyContent:'center',gap:8,marginTop:4}}>
+                    {loading?<div style={{width:18,height:18,border:'2px solid rgba(255,255,255,.3)',borderTopColor:'#fff',borderRadius:'50%',animation:'spin 1s linear infinite'}}/>:<>Submit Registration <Ico name="arrowR" size={14}/></>}
+                  </button>
+                  <p style={{textAlign:'center',color:'#334155',fontSize:'.75rem'}}>Pay ₹200 at the CSI desk after submitting this form</p>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+      <Footer/>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   APP ROOT
+═══════════════════════════════════════════════════ */
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [page, setPage] = useState('home');
+
+  if (!loggedIn) return <LandingPage onLogin={()=>{setLoggedIn(true);setPage('home');}}/>;
+  if (page==='membership') return <MembershipPage onBack={()=>setPage('home')} onLogout={()=>{setLoggedIn(false);setPage('home');}}/>;
+  return <HomePage onLogout={()=>{setLoggedIn(false);setPage('home');}} onMembership={()=>setPage('membership')}/>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
