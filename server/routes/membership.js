@@ -29,10 +29,12 @@ router.post('/apply', upload.single('screenshot'), async (req, res) => {
 
   // Upload image to Imgbb completely for free
   const base64Image = req.file.buffer.toString('base64');
-  const imgData = new FormData();
-  imgData.append('image', base64Image);
+  const params = new URLSearchParams();
+  params.append('image', base64Image);
   
-  const imgbbRes = await axios.post(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`, imgData);
+  const imgbbRes = await axios.post(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`, params, {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  });
   const screenshotUrl = imgbbRes.data.data.url;
 
   // Write document to Firestore
