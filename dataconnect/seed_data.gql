@@ -1,0 +1,48 @@
+mutation CreateDemoData @transaction @auth(level: USER, insecureReason: "This is a seed data mutation and is only run by authenticated users to populate the database.") {
+  user_insertMany(data: [
+    {
+      id: "user-1",
+      username: "john.doe",
+      email: "john.doe@example.com",
+      createdAt: "2024-01-01T10:00:00Z"
+    },
+    {
+      id: "user-2",
+      username: "jane.smith",
+      email: "jane.smith@example.com",
+      createdAt: "2024-01-01T10:05:00Z"
+    }
+  ])
+  post_insertMany(data: [
+    {
+      id: "post-1",
+      user: "user-1",
+      title: "My First Post",
+      content: "This is the content of John's first post.",
+      createdAt: "2024-01-01T10:30:00Z"
+    },
+    {
+      id: "post-2",
+      user: "user-2",
+      title: "Hello World",
+      content: "Jane's exciting hello world post!",
+      createdAt: "2024-01-01T10:45:00Z"
+    }
+  ])
+  comment_insertMany(data: [
+    {
+      id: "comment-1",
+      post: "post-1",
+      user: "user-2",
+      content: "Great post, John!",
+      createdAt: "2024-01-01T11:00:00Z"
+    },
+    {
+      id: "comment-2",
+      post: "post-2",
+      user: "user-1",
+      content: "Welcome to the platform, Jane!",
+      createdAt: "2024-01-01T11:10:00Z"
+    }
+  ])
+}

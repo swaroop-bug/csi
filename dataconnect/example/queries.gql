@@ -1,0 +1,27 @@
+query ListAllMovies @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  movies {
+    id
+    title
+    releaseYear
+    genre
+    rating
+  }
+}
+
+query GetMovieById($id: UUID!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  movie(key: {id: $id}) {
+    id
+    title
+    releaseYear
+    genre
+    rating
+  }
+}
+
+mutation CreateMovie($title: String!, $releaseYear: Int!, $genre: String!, $rating: Float!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  movie_insert(data: {title: $title, releaseYear: $releaseYear, genre: $genre, rating: $rating})
+}
+
+mutation UpdateMovieRating($id: UUID!, $rating: Float!) @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users.") {
+  movie_update(key: {id: $id}, data: {rating: $rating})
+}

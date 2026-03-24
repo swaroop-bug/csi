@@ -1,0 +1,29 @@
+type User @table {
+  username: String!
+  email: String!
+  createdAt: Timestamp!
+  displayName: String
+  role: String
+}
+
+type Event @table {
+  title: String!
+  date: Date!
+  time: String!
+  location: String!
+  isPublished: Boolean!
+  createdAt: Timestamp!
+  description: String
+  imageUrl: String
+  creator: User
+}
+
+type Notice @table {
+  title: String!
+  content: String!
+  publishedAt: Timestamp!
+  isPublished: Boolean!
+  createdAt: Timestamp!
+  expiryDate: Date
+  creator: User
+}
