@@ -1,7 +1,8 @@
 const router    = require('express').Router();
 const multer    = require('multer');
 const path      = require('path');
-const { db, bucket } = require('../firebase');
+const axios     = require('axios');
+const { db }    = require('../firebase');
 const verifyFirebaseToken = require('../middleware/auth');
 const { sendReceiptEmail } = require('../utils/mailer');
 
@@ -26,21 +27,13 @@ router.post('/apply', upload.single('screenshot'), async (req, res) => {
     return res.status(400).json({ message: 'All fields and payment screenshot are required' });
   }
 
-  // Upload image to Firebase Storage
-  const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-  const ext = path.extname(req.file.originalname) || '.jpg';
-  const filename = `payments/pay-${unique}${ext}`;
-  const file = bucket.file(filename);
-
-  await file.save(req.file.buffer, {
-    metadata: { contentType: req.file.mimetype }
-  });
-
-  // Get a highly persistent public URL
-  const [screenshotUrl] = await file.getSignedUrl({
-    action: 'read',
-    expires: '01-01-2100',
-  });
+  // Upload image to Imgbb completely for free
+  const base64Image = req.file.buffer.toString('base64');
+  const imgData = new FormData();
+  imgData.append('image', base64Image);
+  
+  const imgbbRes = await axios.post(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`, imgData);
+  const screenshotUrl = imgbbRes.data.data.url;
 
   // Write document to Firestore
   const docRef = await db.collection('members').add({
