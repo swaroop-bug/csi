@@ -6,6 +6,8 @@ import {
   onAuthStateChanged,
   updateProfile,
   sendPasswordResetEmail,
+  setPersistence,
+  browserSessionPersistence,
 } from 'firebase/auth';
 import axios from 'axios';
 import { auth } from '../firebase';
@@ -18,6 +20,9 @@ export function AuthProvider({ children }) {
 
   // Listen to Firebase Auth state changes
   useEffect(() => {
+    // Force session-only persistence so users are logged out when closing the tab
+    setPersistence(auth, browserSessionPersistence).catch(console.error);
+
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         // Get the ID token and set it on axios for all API calls
