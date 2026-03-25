@@ -67,7 +67,7 @@ export default function HomePage() {
             </button>
           </div>
           {/* Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14, marginBottom: 36 }}>
+          <div className="stats-grid" style={{ marginBottom: 36 }}>
             {statsBar.map(({ v, l, ic, c }) => (
               <GlassCard key={l} style={{ padding: '18px 14px', textAlign: 'center' }}>
                 <Ico name={ic} size={18} color={c} />
@@ -86,7 +86,7 @@ export default function HomePage() {
       <section id="about" className="section-wrap" style={{ position: 'relative' }}>
         <div className="orb orb-b" style={{ width: 350, height: 350, left: -80, top: 0, opacity: .15 }} />
         <div className="inner">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
+          <div className="grid-2" style={{ alignItems: 'center' }}>
             <div>
               <Eyebrow text="Who we are" />
               <SectionTitle>More Than a<br /><span className="text-grad">Student Club</span></SectionTitle>
@@ -100,7 +100,7 @@ export default function HomePage() {
                 Meet Our Team <Ico name="arrowR" size={13} />
               </button>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="grid-2" style={{ gap: 12 }}>
               {pillars.map(({ ic, t, d, g }) => (
                 <GlassCard key={t} style={{ padding: '20px 18px' }}>
                   <div style={{ width: 40, height: 40, borderRadius: 12, background: g, opacity: .85, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>

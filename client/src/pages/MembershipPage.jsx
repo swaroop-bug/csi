@@ -145,7 +145,7 @@ export default function MembershipPage() {
               <>
                 <h3 style={{ fontFamily: 'Outfit', fontWeight: 700, color: '#fff', fontSize: '1.1rem', marginBottom: 20 }}>Register Now</h3>
                 <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                  <div className="grid-2" style={{ gap: 12 }}>
                     <div>
                       <label className="form-label">Full Name *</label>
                       <input className="glass-input" value={form.name} onChange={e => set('name', e.target.value)} placeholder="Your full name" required style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.9rem' }} />
@@ -155,7 +155,7 @@ export default function MembershipPage() {
                       <input type="date" className="glass-input" value={form.dob} onChange={e => set('dob', e.target.value)} required style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.9rem', color: form.dob ? '#fff' : '#94a3b8' }} />
                     </div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                  <div className="grid-2" style={{ gap: 12 }}>
                     <div>
                       <label className="form-label">Personal Email *</label>
                       <input type="email" className="glass-input" value={form.email} onChange={e => set('email', e.target.value)} placeholder="your@email.com" required style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.9rem' }} />
