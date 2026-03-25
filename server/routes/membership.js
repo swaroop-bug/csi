@@ -50,9 +50,13 @@ router.post('/apply', upload.single('screenshot'), async (req, res) => {
     verifiedAt:         null,
   });
 
-  // Send HTML receipt email (non-blocking)
-  sendReceiptEmail({ name, dob, email, mobile, year, submittedAt: new Date() })
-    .catch(err => console.error('⚠️  Email send failed:', err.message));
+  // Send HTML receipt email and AWAIT it!
+  // Vercel kills background promises the moment res.send() is called!
+  try {
+    await sendReceiptEmail({ name, dob, email, mobile, year, submittedAt: new Date() });
+  } catch (err) {
+    console.error('⚠️  Email send failed:', err.message);
+  }
 
   res.status(201).json({
     message:  'Application submitted! Check your email for a receipt.',
