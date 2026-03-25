@@ -1,8 +1,19 @@
-const { Resend } = require('resend');
+const nodemailer = require('nodemailer');
+const dns = require('dns');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Render's Node environment resolves IPv6 for Gmail but blocks external IPv6 traffic.
+// This forces Node.js to use IPv4 instead.
+dns.setDefaultResultOrder('ipv4first');
 
-
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
 /**
  * Sends a styled HTML receipt email after membership registration.
  * @param {Object} member - { name, email, mobile, year, dob, submittedAt }
@@ -82,13 +93,8 @@ async function sendReceiptEmail(member) {
 </html>
   `;
 
-  // Note: To send emails with Resend in production to your members, you MUST verify your domain (e.g., ternaengg.ac.in).
-  // Until you verify your domain on the Resend dashboard, you can only send test emails from 'onboarding@resend.dev'
-  // to your own registered Resend email address.
-  const senderAddress = process.env.RESEND_SENDER_EMAIL || 'onboarding@resend.dev';
-
-  await resend.emails.send({
-    from: `"${process.env.MAIL_FROM_NAME || 'CSI Terna'}" <${senderAddress}>`,
+  await transporter.sendMail({
+    from: `"${process.env.MAIL_FROM_NAME || 'CSI Terna'}" <${process.env.GMAIL_USER}>`,
     to: member.email,
     subject: `CSI Terna Membership — Registration Received 🎉`,
     html,
