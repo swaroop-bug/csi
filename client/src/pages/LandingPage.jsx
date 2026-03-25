@@ -88,7 +88,7 @@ export default function LandingPage() {
       <div className="orb orb-p" style={{ width: 500, height: 500, bottom: -150, right: -100, opacity: .45 }} />
 
       {/* Minimal nav */}
-      <nav style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 32px' }}>
+      <nav style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 5%' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{ width: 32, height: 32, borderRadius: '50%', overflow: 'hidden', background: '#fff' }}>
             <img src={csiLogo} alt="CSI" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -102,8 +102,8 @@ export default function LandingPage() {
       </nav>
 
       {/* Body */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px 24px', position: 'relative', zIndex: 5 }}>
-        <div style={{ width: '100%', maxWidth: 1100, display: 'grid', gridTemplateColumns: '1fr 420px', gap: 60, alignItems: 'center' }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px 5%', position: 'relative', zIndex: 5 }}>
+        <div className="landing-grid" style={{ width: '100%', maxWidth: 1100 }}>
 
           {/* LEFT */}
           <div className="fade-up">
@@ -117,7 +117,7 @@ export default function LandingPage() {
             <p style={{ color: '#64748b', fontSize: '1.05rem', fontWeight: 300, lineHeight: 1.8, maxWidth: 460, marginBottom: 32 }}>
               Join CSI Terna — Terna's most active tech community driving workshops, hackathons, and industry connections for 500+ students.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, maxWidth: 380 }}>
+            <div className="grid-2" style={{ gap: 12, maxWidth: 380, margin: '0 auto' }}>
               {stats.map(({ v, l, ic, c }) => (
                 <GlassCard key={l} style={{ padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
                   <div style={{ width: 38, height: 38, borderRadius: 12, background: `${c}18`, border: `1px solid ${c}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
