@@ -1,4 +1,9 @@
 const nodemailer = require('nodemailer');
+const dns = require('dns');
+
+// Render's Node environment resolves IPv6 for Gmail but blocks external IPv6 traffic.
+// This forces Node.js to use IPv4 instead.
+dns.setDefaultResultOrder('ipv4first');
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
