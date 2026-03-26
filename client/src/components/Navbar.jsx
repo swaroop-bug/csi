@@ -58,7 +58,7 @@ export default function Navbar() {
 
           {/* Right actions */}
           <div className="desk-nav" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            {user?.role === 'admin' && (
+            {user?.isAdmin && (
               <button className="btn-gl" onClick={() => navigate('/admin')} style={{ padding: '8px 16px', borderRadius: 10, fontSize: '.82rem', display: 'flex', alignItems: 'center', gap: 5 }}>
                 <Ico name="settings" size={12} /> Admin
               </button>
@@ -97,6 +97,7 @@ export default function Navbar() {
           </button>
         ))}
         <div style={{ borderTop: '1px solid rgba(255,255,255,.07)', marginTop: 8, paddingTop: 8, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {user?.isAdmin && <button onClick={() => { navigate('/admin'); setMob(false); }} style={{ padding: '12px', borderRadius: 12, background: 'rgba(255,255,255,.1)', border: '1px solid rgba(255,255,255,.2)', color: '#fff', fontFamily: 'DM Sans', fontSize: '.9rem', cursor: 'pointer', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}><Ico name="settings" size={14}/> Admin</button>}
           <button className="btn-pr" onClick={() => { navigate('/membership'); setMob(false); }} style={{ padding: '12px', borderRadius: 12, fontSize: '.9rem', width: '100%' }}>Membership</button>
           {user && <button onClick={() => { navigate('/profile'); setMob(false); }} style={{ padding: '12px', borderRadius: 12, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.1)', color: '#fff', fontFamily: 'DM Sans', fontSize: '.9rem', cursor: 'pointer', width: '100%' }}>Profile</button>}
           {user && <button onClick={logout} style={{ padding: '12px', borderRadius: 12, background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.2)', color: '#f87171', fontFamily: 'DM Sans', fontSize: '.9rem', cursor: 'pointer', width: '100%' }}>Sign Out</button>}
