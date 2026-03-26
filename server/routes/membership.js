@@ -103,10 +103,24 @@ router.patch('/:id', verifyFirebaseToken, async (req, res) => {
     try {
       const doc = await db.collection('members').doc(req.params.id).get();
       if (doc.exists) {
-        await sendApprovalEmail(doc.data());
+        const mData = doc.data();
+        await sendApprovalEmail(mData);
+
+        // ── AUTO-UPDATE PROFILE ──
+        // Find user by email and sync memberId
+        const uSnap = await db.collection('users').where('email', '==', mData.email).limit(1).get();
+        if (!uSnap.empty) {
+          const uDoc = uSnap.docs[0];
+          await uDoc.ref.update({
+            memberId: mData.memberId,
+            year:     mData.year, // Sync year from application
+            isMember: true
+          });
+          console.log(`✅ Profile updated for ${mData.email}`);
+        }
       }
     } catch (err) {
-      console.error('⚠️ Approval email send failed:', err.message);
+      console.error('⚠️ Post-approval steps failed:', err.message);
     }
   }
 

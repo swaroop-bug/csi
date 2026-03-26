@@ -58,10 +58,10 @@ export default function MembershipPage() {
       <div className="orb orb-p" style={{ width: 500, height: 400, bottom: -150, left: -100, opacity: .22 }} />
       <Navbar />
 
-      <div className="inner" style={{ paddingTop: 88, paddingBottom: 60 }}>
+      <div className="inner" style={{ paddingTop: 120, paddingBottom: 60 }}>
         {/* Back */}
         <button onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 7, color: '#64748b', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.88rem', marginBottom: 28, transition: 'color .2s' }}
-          onMouseEnter={e => e.currentTarget.style.color = '#22d3ee'} onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--color-primary)'} onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>
           <Ico name="chevL" size={15} /> Back to Home
         </button>
 
@@ -98,7 +98,7 @@ export default function MembershipPage() {
           <div className="glass" style={{ borderRadius: 18, overflow: 'hidden' }}>
             {steps.map(({ n, t, d }) => (
               <div key={n} style={{ display: 'flex', alignItems: 'flex-start', gap: 18, padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,.05)' }}>
-                <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg,#22d3ee,#7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Outfit', fontWeight: 800, color: '#fff', fontSize: '.85rem', flexShrink: 0 }}>{n}</div>
+                <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg,#7C3AED,#7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Outfit', fontWeight: 800, color: '#fff', fontSize: '.85rem', flexShrink: 0 }}>{n}</div>
                 <div>
                   <p style={{ fontFamily: 'Outfit', fontWeight: 600, fontSize: '.95rem', color: '#fff', marginBottom: 4 }}>{t}</p>
                   <p style={{ color: '#475569', fontSize: '.85rem', fontWeight: 300, lineHeight: 1.6 }}>{d}</p>
@@ -111,10 +111,10 @@ export default function MembershipPage() {
         {/* Pricing + Form */}
         <div className="grid-2">
           {/* Pricing */}
-          <div className="glass-strong" style={{ borderRadius: 24, padding: 36, position: 'relative', overflow: 'hidden', border: '1px solid rgba(6,182,212,.2)' }}>
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,rgba(6,182,212,.07),rgba(124,58,237,.06))' }} />
+          <div className="glass-strong hero-glow" style={{ borderRadius: 24, padding: 36, position: 'relative', overflow: 'hidden', border: '1px solid rgba(124, 58, 237,.2)' }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg,rgba(124, 58, 237,.07),rgba(124,58,237,.06))' }} />
             <div style={{ position: 'relative' }}>
-              <div style={{ display: 'inline-block', padding: '3px 12px', borderRadius: 50, background: 'linear-gradient(90deg,rgba(6,182,212,.2),rgba(124,58,237,.18))', border: '1px solid rgba(6,182,212,.28)', color: '#67e8f9', fontSize: '.72rem', fontWeight: 600, marginBottom: 16 }}>Academic Year 2025–26</div>
+              <div style={{ display: 'inline-block', padding: '3px 12px', borderRadius: 50, background: 'linear-gradient(90deg,rgba(124, 58, 237,.2),rgba(124,58,237,.18))', border: '1px solid rgba(124, 58, 237,.28)', color: 'var(--color-accent)', fontSize: '.72rem', fontWeight: 600, marginBottom: 16 }}>Academic Year 2025–26</div>
               <div style={{ fontFamily: 'Outfit', fontWeight: 900, fontSize: '3.2rem', color: '#fff', marginBottom: 4 }}>₹350</div>
               <p style={{ color: '#475569', fontSize: '.88rem', fontWeight: 300, marginBottom: 24 }}>per academic year</p>
               <ul style={{ listStyle: 'none', marginBottom: 28 }}>
@@ -124,7 +124,7 @@ export default function MembershipPage() {
                   </li>
                 ))}
               </ul>
-              <p style={{ color: '#334155', fontSize: '.78rem', textAlign: 'center' }}>Questions? Email <span style={{ color: '#22d3ee' }}>csi@terna.ac.in</span></p>
+              <p style={{ color: '#334155', fontSize: '.78rem', textAlign: 'center' }}>Questions? Email <span style={{ color: 'var(--color-primary)' }}>csi@terna.ac.in</span></p>
             </div>
           </div>
 
@@ -183,7 +183,7 @@ export default function MembershipPage() {
                     </div>
                     <p style={{ color: '#94a3b8', fontSize: '.85rem', marginBottom: 16 }}>UPI ID: <strong style={{ color: '#fff' }}>9326151339@upi</strong></p>
                     <div style={{ textAlign: 'left' }}>
-                      <label className="form-label" style={{ color: '#22d3ee' }}>Upload Payment Screenshot *</label>
+                      <label className="form-label" style={{ color: 'var(--color-primary)' }}>Upload Payment Screenshot *</label>
                       <input type="file" accept="image/*" onChange={e => set('screenshot', e.target.files[0])} required className="glass-input" style={{ width: '100%', padding: '10px', borderRadius: 12, fontSize: '.85rem', background: 'rgba(0,0,0,.2)' }} />
                     </div>
                   </div>

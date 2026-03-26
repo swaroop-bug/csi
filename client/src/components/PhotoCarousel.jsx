@@ -21,7 +21,7 @@ export default function PhotoCarousel() {
   }, [cur, go]);
 
   return (
-    <div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', height: 400, background: '#0f172a' }}>
+    <div style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', height: 400, background: 'var(--color-surface)' }}>
       <img
         src={CAROUSEL[cur].url} alt={CAROUSEL[cur].cap}
         style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: fading ? 0 : 1, transition: 'opacity .35s ease, transform .35s ease', transform: `scale(${fading ? .97 : 1})` }}
@@ -43,7 +43,7 @@ export default function PhotoCarousel() {
       {/* Dots */}
       <div style={{ position: 'absolute', bottom: 14, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 6, zIndex: 5 }}>
         {CAROUSEL.map((_, i) => (
-          <button key={i} onClick={() => go(i)} style={{ borderRadius: 9999, border: 'none', cursor: 'pointer', transition: 'all .3s', background: i === cur ? '#22d3ee' : 'rgba(255,255,255,.35)', width: i === cur ? 20 : 7, height: 7 }} />
+          <button key={i} onClick={() => go(i)} style={{ borderRadius: 9999, border: 'none', cursor: 'pointer', transition: 'all .3s', background: i === cur ? 'var(--color-primary)' : 'rgba(255,255,255,.35)', width: i === cur ? 20 : 7, height: 7 }} />
         ))}
       </div>
     </div>

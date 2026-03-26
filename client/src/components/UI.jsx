@@ -12,7 +12,7 @@ export function GlassCard({ children, style, onClick, className }) {
 
 export function Eyebrow({ text }) {
   return (
-    <p style={{ fontSize: '.72rem', fontWeight: 600, color: '#22d3ee', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: '10px' }}>
+    <p style={{ fontSize: '.72rem', fontWeight: 600, color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: '10px' }}>
       {text}
     </p>
   );

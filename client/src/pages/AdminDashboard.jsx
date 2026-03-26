@@ -46,7 +46,7 @@ export default function AdminDashboard() {
   const filtered = filter === 'all' ? members : members.filter(m => m.status === filter);
 
   const stats = [
-    { label: 'Total',    value: members.length,                                    color: '#22d3ee' },
+    { label: 'Total',    value: members.length,                                    color: 'var(--color-primary)' },
     { label: 'Pending',  value: members.filter(m => m.status === 'pending').length,  color: '#fbbf24' },
     { label: 'Verified', value: members.filter(m => m.status === 'verified').length, color: '#4ade80' },
     { label: 'Rejected', value: members.filter(m => m.status === 'rejected').length, color: '#f87171' },
@@ -57,7 +57,7 @@ export default function AdminDashboard() {
       <div className="orb orb-c" style={{ width: 400, height: 400, top: -100, right: -100, opacity: .2 }} />
       <Navbar />
 
-      <div className="inner" style={{ paddingTop: 88, paddingBottom: 60 }}>
+      <div className="inner" style={{ paddingTop: 120, paddingBottom: 60 }}>
         <div style={{ marginBottom: 32 }}>
           <Eyebrow text="Admin Panel" />
           <h1 className="section-title" style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', color: '#fff', marginBottom: 6 }}>
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
         <div className="glass" style={{ borderRadius: 18, overflow: 'hidden' }}>
           {loading ? (
             <div style={{ padding: '60px', textAlign: 'center', color: '#475569' }}>
-              <div style={{ width: 32, height: 32, border: '3px solid rgba(6,182,212,.2)', borderTopColor: '#22d3ee', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 12px' }} />
+              <div style={{ width: 32, height: 32, border: '3px solid rgba(124, 58, 237,.2)', borderTopColor: 'var(--color-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 12px' }} />
               Loading members...
             </div>
           ) : filtered.length === 0 ? (
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
                     const date = new Date(m.submittedAt).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'2-digit' });
                     return (
                       <tr key={m._id}>
-                        <td style={{ fontWeight: 500, color: '#e2e8f0' }}>{m.name}</td>
+                        <td style={{ fontWeight: 500, color: 'var(--color-text)' }}>{m.name}</td>
                         <td style={{ color: '#94a3b8' }}>{m.email}</td>
                         <td style={{ color: '#94a3b8' }}>{m.mobile}</td>
                         <td style={{ color: '#94a3b8', fontSize: '.82rem' }}>{m.year}</td>
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
                           <div style={{ display: 'flex', gap: 6 }}>
                             {m.screenshotPath && (
                               <a href={`${API}/uploads/${m.screenshotPath}`} target="_blank" rel="noopener noreferrer"
-                                style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(6,182,212,.1)', border: '1px solid rgba(6,182,212,.2)', color: '#22d3ee', fontSize: '.72rem', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(124, 58, 237,.1)', border: '1px solid rgba(124, 58, 237,.2)', color: 'var(--color-primary)', fontSize: '.72rem', cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}>
                                 <Ico name="eye" size={11} /> View
                               </a>
                             )}

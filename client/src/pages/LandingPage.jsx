@@ -7,7 +7,7 @@ import Ico from '../components/Ico';
 import toast from 'react-hot-toast';
 
 const stats = [
-  { v: '500+', l: 'Active Members', ic: 'users', c: '#22d3ee' },
+  { v: '500+', l: 'Active Members', ic: 'users', c: 'var(--color-primary)' },
   { v: '20+', l: 'Events / Year', ic: 'zap', c: '#a78bfa' },
   { v: '10+', l: 'Years Legacy', ic: 'trophy', c: '#fbbf24' },
   { v: '15+', l: 'Ind. Partners', ic: 'globe', c: '#4ade80' },
@@ -93,7 +93,7 @@ export default function LandingPage() {
           <div style={{ width: 32, height: 32, borderRadius: '50%', overflow: 'hidden', background: '#fff' }}>
             <img src={csiLogo} alt="CSI" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <span style={{ fontFamily: 'Outfit', fontWeight: 700, color: '#fff', fontSize: '1.05rem' }}>CSI <span style={{ color: '#22d3ee' }}>Terna</span></span>
+          <span style={{ fontFamily: 'Outfit', fontWeight: 700, color: '#fff', fontSize: '1.05rem' }}>CSI <span style={{ color: 'var(--color-primary)' }}>Terna</span></span>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button onClick={() => switchTab('login')} className={tab === 'login' ? 'glass' : ''} style={{ padding: '8px 18px', borderRadius: 12, border: 'none', color: tab === 'login' ? '#fff' : '#64748b', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.85rem', background: tab === 'login' ? undefined : 'transparent' }}>Sign In</button>
@@ -133,7 +133,7 @@ export default function LandingPage() {
           </div>
 
           {/* RIGHT — Auth Card */}
-          <div className="glass-strong" style={{ borderRadius: 28, padding: 36 }}>
+          <div className="glass-strong hero-glow" style={{ borderRadius: 28, padding: 36 }}>
             <div style={{ textAlign: 'center', marginBottom: 28 }}>
               <div style={{ width: 60, height: 60, borderRadius: '50%', overflow: 'hidden', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
                 <img src={csiLogo} alt="CSI" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -160,7 +160,7 @@ export default function LandingPage() {
                     style={{
                       flex: 1, padding: '10px', borderRadius: 10,
                       border: tab === t ? '1px solid rgba(255,255,255,.12)' : '1px solid transparent',
-                      background: tab === t ? 'linear-gradient(135deg,rgba(6,182,212,.2),rgba(124,58,237,.18))' : 'transparent',
+                      background: tab === t ? 'linear-gradient(135deg,rgba(124, 58, 237,.2),rgba(124,58,237,.18))' : 'transparent',
                       color: tab === t ? '#fff' : '#64748b',
                       fontFamily: 'DM Sans', fontSize: '.85rem', fontWeight: 500, cursor: 'pointer', transition: 'all .2s',
                     }}
@@ -175,9 +175,9 @@ export default function LandingPage() {
             {tab === 'forgot' && resetSent ? (
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
                 <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(34,211,238,.12)', border: '1px solid rgba(34,211,238,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
-                  <Ico name="mail" size={22} color="#22d3ee" />
+                  <Ico name="mail" size={22} color='var(--color-primary)' />
                 </div>
-                <p style={{ color: '#e2e8f0', fontWeight: 500, marginBottom: 8 }}>Check your inbox!</p>
+                <p style={{ color: 'var(--color-text)', fontWeight: 500, marginBottom: 8 }}>Check your inbox!</p>
                 <p style={{ color: '#64748b', fontSize: '.82rem', marginBottom: 24 }}>
                   A password reset link has been sent to <strong style={{ color: '#94a3b8' }}>{email}</strong>.
                 </p>
@@ -220,7 +220,7 @@ export default function LandingPage() {
                         <button
                           type="button"
                           onClick={() => switchTab('forgot')}
-                          style={{ color: '#22d3ee', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.75rem', fontWeight: 500 }}
+                          style={{ color: 'var(--color-primary)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.75rem', fontWeight: 500 }}
                         >
                           Forgot password?
                         </button>
@@ -268,15 +268,15 @@ export default function LandingPage() {
             <p style={{ textAlign: 'center', marginTop: 16, fontSize: '.78rem', color: '#334155' }}>
               {tab === 'forgot' ? (
                 <>Remember your password?{' '}
-                  <button onClick={() => switchTab('login')} style={{ color: '#22d3ee', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.78rem', fontWeight: 500 }}>Sign in</button>
+                  <button onClick={() => switchTab('login')} style={{ color: 'var(--color-primary)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.78rem', fontWeight: 500 }}>Sign in</button>
                 </>
               ) : tab === 'login' ? (
                 <>Don't have an account?{' '}
-                  <button onClick={() => switchTab('signup')} style={{ color: '#22d3ee', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.78rem', fontWeight: 500 }}>Sign up</button>
+                  <button onClick={() => switchTab('signup')} style={{ color: 'var(--color-primary)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.78rem', fontWeight: 500 }}>Sign up</button>
                 </>
               ) : (
                 <>Already a member?{' '}
-                  <button onClick={() => switchTab('login')} style={{ color: '#22d3ee', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.78rem', fontWeight: 500 }}>Sign in</button>
+                  <button onClick={() => switchTab('login')} style={{ color: 'var(--color-primary)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.78rem', fontWeight: 500 }}>Sign in</button>
                 </>
               )}
             </p>

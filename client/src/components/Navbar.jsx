@@ -36,21 +36,29 @@ export default function Navbar() {
 
   const navLink = (l) => (
     <button key={l} onClick={() => go(l.toLowerCase())}
-      style={{ background: active === l.toLowerCase() ? 'rgba(6,182,212,.1)' : 'transparent', border: 'none', color: active === l.toLowerCase() ? '#22d3ee' : '#94a3b8', padding: '7px 14px', borderRadius: 10, cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.875rem', transition: 'all .2s', fontWeight: active === l.toLowerCase() ? 500 : 400 }}>
+      style={{ background: active === l.toLowerCase() ? 'rgba(124, 58, 237,.1)' : 'transparent', border: 'none', color: active === l.toLowerCase() ? 'var(--color-primary)' : '#94a3b8', padding: '7px 14px', borderRadius: 10, cursor: 'pointer', fontFamily: 'DM Sans', fontSize: '.875rem', transition: 'all .2s', fontWeight: active === l.toLowerCase() ? 500 : 400 }}>
       {l}
     </button>
   );
 
   return (
     <>
-      <nav id="navbar" className={scrolled ? 'scrolled' : ''} style={{ background: scrolled ? undefined : 'transparent' }}>
+      <div className="notice-bar" style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 10000, height: 36, display: 'flex', alignItems: 'center' }}>
+        <div className="notice-scroll">
+          🚀 Important: CSI members have free access to every event! Join CSI Terna now ⚡ &nbsp;&nbsp;&nbsp;&nbsp; 
+          🚀 Important: CSI members have free access to every event! Join CSI Terna now ⚡ &nbsp;&nbsp;&nbsp;&nbsp;
+          🚀 Important: CSI members have free access to every event! Join CSI Terna now ⚡
+        </div>
+      </div>
+
+      <nav id="navbar" className={scrolled ? 'scrolled' : ''} style={{ background: scrolled ? undefined : 'transparent', top: 36 }}>
         <div className="inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
           {/* Logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} onClick={() => navigate('/')}>
             <div style={{ width: 32, height: 32, borderRadius: '50%', overflow: 'hidden', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img src={csiLogo} alt="CSI" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <span style={{ fontFamily: 'Outfit', fontWeight: 700, color: '#fff', fontSize: '1.05rem' }}>CSI <span style={{ color: '#22d3ee' }}>Terna</span></span>
+            <span style={{ fontFamily: 'Outfit', fontWeight: 700, color: '#fff', fontSize: '1.05rem' }}>CSI <span style={{ color: 'var(--color-primary)' }}>Terna</span></span>
           </div>
 
           {/* Desktop links */}
@@ -67,9 +75,9 @@ export default function Navbar() {
               Membership <Ico name="chevR" size={12} />
             </button>
             {user && (
-              <button onClick={() => navigate('/profile')} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 10, background: 'transparent', border: 'none', color: '#e2e8f0', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'DM Sans', transition: 'all .2s' }}
+              <button onClick={() => navigate('/profile')} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 10, background: 'transparent', border: 'none', color: 'var(--color-text)', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'DM Sans', transition: 'all .2s' }}
                 onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,.05)'; }}
-                onMouseLeave={e => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.background = 'transparent'; }}>
+                onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-text)'; e.currentTarget.style.background = 'transparent'; }}>
                 <Ico name="user" size={13} /> Profile
               </button>
             )}
@@ -90,7 +98,7 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      <div className={`mob-menu glass-dark ${mob ? 'open' : ''}`} style={{ padding: '12px 16px 16px' }}>
+      <div className={`mob-menu glass-dark ${mob ? 'open' : ''}`} style={{ padding: '12px 16px 16px', top: 36 + 64 }}>
         {isHome && links.map(l => (
           <button key={l} onClick={() => go(l.toLowerCase())} style={{ width: '100%', textAlign: 'left', padding: '12px 16px', borderRadius: 12, background: 'transparent', border: 'none', color: '#cbd5e1', fontFamily: 'DM Sans', fontSize: '.9rem', cursor: 'pointer', display: 'block' }}>
             {l}

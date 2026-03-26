@@ -71,12 +71,12 @@ export default function ProfilePage() {
   return (
     <div className="mesh-bg" style={{ minHeight: '100vh', position: 'relative' }}>
       <Navbar />
-      <div className="inner" style={{ paddingTop: 100, paddingBottom: 60, minHeight: 'calc(100vh - 80px)' }}>
+      <div className="inner" style={{ paddingTop: 130, paddingBottom: 60, minHeight: 'calc(100vh - 80px)' }}>
         <div style={{ maxWidth: 640, margin: '0 auto' }}>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
             <Eyebrow text="Your Account" />
-            <button onClick={() => setEditMode(!editMode)} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'transparent', border: '1px solid rgba(255,255,255,.1)', color: '#e2e8f0', padding: '6px 14px', borderRadius: 8, cursor: 'pointer', fontSize: '.85rem', transition: 'all .2s' }}
+            <button onClick={() => setEditMode(!editMode)} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'transparent', border: '1px solid rgba(255,255,255,.1)', color: 'var(--color-text)', padding: '6px 14px', borderRadius: 8, cursor: 'pointer', fontSize: '.85rem', transition: 'all .2s' }}
               onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,.05)'}
               onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
               <Ico name={editMode ? 'x' : 'settings'} size={14} /> {editMode ? 'Cancel' : 'Edit Profile'}
@@ -85,7 +85,7 @@ export default function ProfilePage() {
 
           <GlassCard style={{ padding: '40px 32px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 36, paddingBottom: 30, borderBottom: '1px solid rgba(255,255,255,.08)' }}>
-              <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'linear-gradient(135deg, #22d3ee, #7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', fontWeight: 700, fontFamily: 'Outfit', color: '#fff' }}>
+              <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'linear-gradient(135deg, #7C3AED, #7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', fontWeight: 700, fontFamily: 'Outfit', color: '#fff' }}>
                 {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
               <div>
