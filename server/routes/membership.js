@@ -4,7 +4,7 @@ const path      = require('path');
 const axios     = require('axios');
 const { db }    = require('../firebase');
 const verifyFirebaseToken = require('../middleware/auth');
-const { sendReceiptEmail } = require('../utils/mailer');
+const { sendReceiptEmail, sendApprovalEmail } = require('../utils/mailer');
 
 // ── Multer: save payment screenshots in memory for Firebase upload
 const storage = multer.memoryStorage();
@@ -92,9 +92,24 @@ router.patch('/:id', verifyFirebaseToken, async (req, res) => {
   }
 
   const update = { status };
-  if (status === 'verified') update.verifiedAt = new Date().toISOString();
+  if (status === 'verified') {
+    update.verifiedAt = new Date().toISOString();
+    update.memberId   = `CSI-25-${req.params.id.slice(-6).toUpperCase()}`;
+  }
 
   await db.collection('members').doc(req.params.id).update(update);
+
+  if (status === 'verified') {
+    try {
+      const doc = await db.collection('members').doc(req.params.id).get();
+      if (doc.exists) {
+        await sendApprovalEmail(doc.data());
+      }
+    } catch (err) {
+      console.error('⚠️ Approval email send failed:', err.message);
+    }
+  }
+
   res.json({ message: `Status updated to ${status}` });
 });
 

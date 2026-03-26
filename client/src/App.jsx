@@ -5,6 +5,7 @@ import LandingPage     from './pages/LandingPage';
 import HomePage        from './pages/HomePage';
 import MembershipPage  from './pages/MembershipPage';
 import AdminDashboard  from './pages/AdminDashboard';
+import ProfilePage     from './pages/ProfilePage';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -29,6 +30,7 @@ function AppRoutes() {
       <Route path="/login" element={user ? <Navigate to="/" replace /> : <LandingPage />} />
       <Route path="/"          element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
       <Route path="/membership" element={<ProtectedRoute><MembershipPage /></ProtectedRoute>} />
+      <Route path="/profile"   element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       <Route path="/admin"     element={<AdminRoute><AdminDashboard /></AdminRoute>} />
       <Route path="*"          element={<Navigate to="/" replace />} />
     </Routes>

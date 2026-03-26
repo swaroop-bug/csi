@@ -66,8 +66,8 @@ export default function Footer() {
 
         <div className="hdiv" style={{ marginBottom: 20 }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
-          <p style={{ color: '#334155', fontSize: '.75rem' }}>© 2025 CSI Student Chapter — Terna Engineering College. All rights reserved.</p>
-          <p style={{ color: '#334155', fontSize: '.75rem' }}>Built with <span style={{ color: '#22d3ee' }}>passion</span> for technology</p>
+          <p style={{ color: '#334155', fontSize: '.75rem' }}>© 2025-2026 CSI Student Chapter — Terna Engineering College. All rights reserved.</p>
+          <p style={{ color: '#334155', fontSize: '.75rem' }}>Built by <span style={{ color: '#22d3ee' }}>Swaroop</span> for CSI</p>
         </div>
       </div>
     </footer>

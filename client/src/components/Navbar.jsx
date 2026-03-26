@@ -67,6 +67,13 @@ export default function Navbar() {
               Membership <Ico name="chevR" size={12} />
             </button>
             {user && (
+              <button onClick={() => navigate('/profile')} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 10, background: 'transparent', border: 'none', color: '#e2e8f0', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'DM Sans', transition: 'all .2s' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,.05)'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = '#e2e8f0'; e.currentTarget.style.background = 'transparent'; }}>
+                <Ico name="user" size={13} /> Profile
+              </button>
+            )}
+            {user && (
               <button onClick={logout} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 10, background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: '.82rem', fontFamily: 'DM Sans', transition: 'all .2s' }}
                 onMouseEnter={e => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(239,68,68,.08)'; }}
                 onMouseLeave={e => { e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'transparent'; }}>
@@ -91,6 +98,7 @@ export default function Navbar() {
         ))}
         <div style={{ borderTop: '1px solid rgba(255,255,255,.07)', marginTop: 8, paddingTop: 8, display: 'flex', flexDirection: 'column', gap: 8 }}>
           <button className="btn-pr" onClick={() => { navigate('/membership'); setMob(false); }} style={{ padding: '12px', borderRadius: 12, fontSize: '.9rem', width: '100%' }}>Membership</button>
+          {user && <button onClick={() => { navigate('/profile'); setMob(false); }} style={{ padding: '12px', borderRadius: 12, background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.1)', color: '#fff', fontFamily: 'DM Sans', fontSize: '.9rem', cursor: 'pointer', width: '100%' }}>Profile</button>}
           {user && <button onClick={logout} style={{ padding: '12px', borderRadius: 12, background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.2)', color: '#f87171', fontFamily: 'DM Sans', fontSize: '.9rem', cursor: 'pointer', width: '100%' }}>Sign Out</button>}
         </div>
       </div>
