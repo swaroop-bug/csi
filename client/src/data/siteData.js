@@ -35,7 +35,7 @@ export const NOTICES = [
   { id: 1, title: 'CSI Membership Registration for 2025–26 is now OPEN!', date: '', type: 'success', isNew: true },
   { id: 2, title: 'Web-Dev Battle registration link is LIVE', date: 'April 6, 2026', type: 'info', isNew: true },
   { id: 3, title: 'Spot the Bug registration link is LIVE', date: 'April 7, 2026', type: 'info', isNew: true },
-  { id: 4, title: 'Agentic AI Workshop registration closes in 3 days', date: 'March 15, 2026', type: 'warn', isNew: false },
+  { id: 4, title: 'Agentic AI Workshop registration closes in 3 days', date: 'March 27, 2026', type: 'warn', isNew: false },
 ];
 
 // ── CAROUSEL ──
