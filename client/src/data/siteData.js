@@ -32,9 +32,10 @@ export const FACULTY = [
 
 // ── NOTICES ──
 export const NOTICES = [
-  { id: 1, title: 'CSI Membership Registration for 2025–26 is now OPEN!', date: 'March 10, 2025', type: 'success', isNew: true },
-  { id: 2, title: 'Web-Dev Battle & Spot the Bug registration link is LIVE', date: 'March 18, 2025', type: 'info', isNew: true },
-  { id: 3, title: 'Agentic AI Workshop registration closes in 3 days', date: 'March 15, 2025', type: 'warn', isNew: false },
+  { id: 1, title: 'CSI Membership Registration for 2025–26 is now OPEN!', date: '', type: 'success', isNew: true },
+  { id: 2, title: 'Web-Dev Battle registration link is LIVE', date: 'April 6, 2026', type: 'info', isNew: true },
+  { id: 3, title: 'Spot the Bug registration link is LIVE', date: 'April 7, 2026', type: 'info', isNew: true },
+  { id: 4, title: 'Agentic AI Workshop registration closes in 3 days', date: 'March 15, 2026', type: 'warn', isNew: false },
 ];
 
 // ── CAROUSEL ──
@@ -50,12 +51,12 @@ export const CAROUSEL = [
 
 // ── MEMBERSHIP BENEFITS ──
 export const BENEFITS = [
-  { ic: 'zap', t: 'Free Event Access', d: 'Priority access to all CSI workshops, bootcamps & hackathons.', g: 'linear-gradient(135deg,#7C3AED,#2563eb)' },
-  { ic: 'award', t: 'CSI Certificates', d: 'Verified certificates for every event — valued by top recruiters.', g: 'linear-gradient(135deg,#8b5cf6,#9333ea)' },
-  { ic: 'users', t: 'Industry Mentorship', d: 'Pair with engineers & alumni for career guidance.', g: 'linear-gradient(135deg,#f59e0b,#f97316)' },
-  { ic: 'book', t: 'Learning Resources', d: 'AWS/Coursera/Udemy discounts & members-only resource library.', g: 'linear-gradient(135deg,#22c55e,#059669)' },
-  { ic: 'globe', t: 'National Network', d: 'Access 70+ CSI chapters & national convention invitations.', g: 'linear-gradient(135deg,#ec4899,#f43f5e)' },
-  { ic: 'briefcase', t: 'Career Opportunities', d: 'Internships, referrals & placement assistance via corporate network.', g: 'linear-gradient(135deg,#6366f1,#7c3aed)' },
-  { ic: 'code', t: 'Project Collaboration', d: 'Join project teams, open-source initiatives & build your portfolio.', g: 'linear-gradient(135deg,#7C3AED,#0d9488)' },
-  { ic: 'news', t: 'Monthly Newsletter', d: 'Exclusive digest: tech news, event recaps & member spotlights.', g: 'linear-gradient(135deg,#f43f5e,#ec4899)' },
+  { ic: 'zap', t: 'Free Event Access', d: 'Priority access to all CSI workshops, bootcamps, seminars & hackathons — free or subsidized for members.', g: 'linear-gradient(135deg,#7C3AED,#2563eb)' },
+  { ic: 'award', t: 'CSI Certificates', d: 'Verified certificates for every attended workshop, seminar, competition & bootcamp — recognized and valued.', g: 'linear-gradient(135deg,#8b5cf6,#9333ea)' },
+  { ic: 'grad', t: 'Credit Points', d: 'Every activity you attend reflects Credit Points on your Extra-Curricular / Co-Curricular academic transcript.', g: 'linear-gradient(135deg,#f59e0b,#f97316)' },
+  { ic: 'cpu', t: 'Skill Development', d: 'Hands-on workshops & bootcamps on AI/ML, Web Dev, Cloud, Cybersecurity, Blockchain & more — monthly.', g: 'linear-gradient(135deg,#22c55e,#059669)' },
+  { ic: 'users', t: 'Industry Connect', d: 'Guest lectures by Software Engineers, Startup Founders, PMs & Cybersecurity Analysts from top companies.', g: 'linear-gradient(135deg,#ec4899,#f43f5e)' },
+  { ic: 'globe', t: 'National Network', d: 'Access 70+ CSI chapters across India & get invitations to national conventions and inter-college events.', g: 'linear-gradient(135deg,#6366f1,#7c3aed)' },
+  { ic: 'briefcase', t: 'Leadership & Organising', d: 'Opportunities to organize and manage events — build real leadership, communication & team management skills.', g: 'linear-gradient(135deg,#7C3AED,#0d9488)' },
+  { ic: 'news', t: 'Monthly Newsletter', d: 'Exclusive member digest with tech news, event recaps, member spotlights & upcoming opportunity alerts.', g: 'linear-gradient(135deg,#f43f5e,#ec4899)' },
 ];
