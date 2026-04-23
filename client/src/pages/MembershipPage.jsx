@@ -12,20 +12,20 @@ const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const steps = [
   { n: '01', t: 'Fill the Registration Form', d: 'Complete the form below with your personal details and academic year.' },
-  { n: '02', t: 'Make the Payment',            d: 'Scan the QR code to pay ₹350 securely via any UPI app (GPay, PhonePe, Paytm).' },
-  { n: '03', t: 'Upload & Submit',             d: 'Attach the payment screenshot and submit. Your receipt will be emailed instantly!' },
+  { n: '02', t: 'Make the Payment', d: 'Scan the QR code to pay ₹350 securely via any UPI app (GPay, PhonePe, Paytm).' },
+  { n: '03', t: 'Upload & Submit', d: 'Attach the payment screenshot and submit. Your receipt will be emailed instantly!' },
 ];
 
 const features = [
-  'Access to all CSI Terna events','Official CSI Member ID card',
-  'Certificates for every event attended','National CSI network access',
-  'Industry mentorship sessions','Exclusive learning resources & discounts',
-  'Monthly newsletter subscription','Priority project team placement',
+  'Access to all CSI Terna events', 'Official CSI Member ID card',
+  'Certificates for every event attended', 'National CSI network access',
+  'Industry mentorship sessions', 'Exclusive learning resources & discounts',
+  'Monthly newsletter subscription', 'Priority project team placement',
 ];
 
 export default function MembershipPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [loading,   setLoading]   = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: '', dob: '', email: '', mobile: '', year: '', screenshot: null });
   const navigate = useNavigate();
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
@@ -36,11 +36,11 @@ export default function MembershipPage() {
     setLoading(true);
     try {
       const fd = new FormData();
-      fd.append('name',       form.name);
-      fd.append('dob',        form.dob);
-      fd.append('email',      form.email);
-      fd.append('mobile',     form.mobile);
-      fd.append('year',       form.year);
+      fd.append('name', form.name);
+      fd.append('dob', form.dob);
+      fd.append('email', form.email);
+      fd.append('mobile', form.mobile);
+      fd.append('year', form.year);
       fd.append('screenshot', form.screenshot);
       await axios.post(`${API}/api/membership/apply`, fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       setSubmitted(true);
@@ -181,7 +181,7 @@ export default function MembershipPage() {
                         onError={e => { e.target.style.display = 'none'; e.target.parentNode.innerHTML = '<span style="color:#000;font-size:.8rem;font-weight:bold;text-align:center">Add your QR<br/>image here</span>'; }}
                       />
                     </div>
-                    <p style={{ color: '#94a3b8', fontSize: '.85rem', marginBottom: 16 }}>UPI ID: <strong style={{ color: '#fff' }}>9326151339@upi</strong></p>
+                    <p style={{ color: '#94a3b8', fontSize: '.85rem', marginBottom: 16 }}>UPI ID: <strong style={{ color: '#fff' }}>harsh.142jain2415-2@oksbi</strong></p>
                     <div style={{ textAlign: 'left' }}>
                       <label className="form-label" style={{ color: 'var(--color-primary)' }}>Upload Payment Screenshot *</label>
                       <input type="file" accept="image/*" onChange={e => set('screenshot', e.target.files[0])} required className="glass-input" style={{ width: '100%', padding: '10px', borderRadius: 12, fontSize: '.85rem', background: 'rgba(0,0,0,.2)' }} />

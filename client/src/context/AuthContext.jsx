@@ -68,8 +68,14 @@ export function AuthProvider({ children }) {
 
   const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
+  const updateName = async (name) => {
+    if (!auth.currentUser) return;
+    await updateProfile(auth.currentUser, { displayName: name });
+    setUser(prev => ({ ...prev, name }));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, resetPassword, isAdmin: user?.isAdmin }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, resetPassword, updateName, isAdmin: user?.isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
