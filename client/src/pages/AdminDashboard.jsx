@@ -43,6 +43,41 @@ export default function AdminDashboard() {
     } catch { toast.error('Failed to update status'); }
   };
 
+  const exportToCSV = () => {
+    if (filtered.length === 0) {
+      toast.error('No data to export');
+      return;
+    }
+
+    const headers = ['Name', 'Email', 'Mobile', 'DOB', 'Year', 'Status', 'Submitted At', 'Verified At', 'Member ID'];
+    const rows = filtered.map(m => [
+      m.name,
+      m.email,
+      m.mobile,
+      m.dob || '',
+      m.year,
+      m.status,
+      m.submittedAt ? new Date(m.submittedAt).toLocaleString() : '',
+      m.verifiedAt ? new Date(m.verifiedAt).toLocaleString() : '',
+      m.memberId || ''
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(val => `"${String(val || '').replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `CSI_Members_${filter}_${new Date().toISOString().slice(0,10)}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const filtered = filter === 'all' ? members : members.filter(m => m.status === filter);
 
   const stats = [
@@ -85,6 +120,9 @@ export default function AdminDashboard() {
           ))}
           <button onClick={fetchMembers} className="btn-gl" style={{ marginLeft: 'auto', padding: '8px 16px', borderRadius: 12, fontSize: '.82rem', display: 'flex', alignItems: 'center', gap: 5 }}>
             <Ico name="arrowR" size={13} /> Refresh
+          </button>
+          <button onClick={exportToCSV} className="btn-pr hero-glow" style={{ padding: '8px 16px', borderRadius: 12, fontSize: '.82rem', display: 'flex', alignItems: 'center', gap: 5, cursor: 'pointer' }}>
+            <Ico name="download" size={13} /> Export Excel (CSV)
           </button>
         </div>
 
