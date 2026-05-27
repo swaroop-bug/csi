@@ -8,10 +8,10 @@ export const EVENTS = [
   { id: 6, title: 'Flutter Webinar', date: 'Feb 2025', type: 'past', cat: 'Seminar', att: 220, img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=75', desc: 'An online session introducing cross-platform mobile app development using Flutter and Dart.', loc: 'Online (Zoom)', color: 'rgba(124, 58, 237,.15)' },
   { id: 7, title: 'Clash of Codes', date: 'Aug 2025', type: 'past', cat: 'Competition', att: 300, img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=700&q=75', desc: 'Our flagship competitive programming contest featuring algorithmic challenges and data structure puzzles.', loc: 'Online', color: 'rgba(34,197,94,.13)' },
   { id: 8, title: 'Blockchain Series', date: 'Sept 2025', type: 'past', cat: 'Seminar', att: 140, img: '/Events/Blockchain2.jpeg', desc: 'A multi-part series exploring Web 3.0, smart contracts, and decentralized application architecture.', loc: 'Auditorium', color: 'rgba(124,58,237,.15)' },
-  { id: 9, eventId: 'agentic-ai-2026', title: 'Agentic AI Workshop', date: '1st & 2nd April', type: 'upcoming', cat: 'Workshop', att: null, img: '/Events/agenticaiworkshop.jpeg', desc: 'Learn to build autonomous AI agents using modern LLM frameworks and orchestration tools.', loc: 'Computer Labs', color: 'rgba(124, 58, 237,.15)', hasRegistration: true },
-  { id: 10, eventId: 'web-dev-battle-2026', title: 'Web-Dev Battle', date: '6th of April', type: 'upcoming', cat: 'Competition', att: null, img: '/Events/web-dev.jpeg', desc: 'Unleash your creativity and coding skills in the Web Dev Battle, where innovation meets speed! This competition challenges you to design and build a futuristic web solution that goes beyond today’s standards.', loc: 'Seminar Hall', color: 'rgba(236,72,153,.13)', hasRegistration: true },
-  { id: 11, eventId: 'spot-the-bug-2026', title: 'Spot the Bug', date: '7th of April', type: 'upcoming', cat: 'Competition', att: null, img: '/Events/spotthebug.jpeg', desc: 'A thrilling bug-hunting contest to test your debugging and problem-solving skills to the limit!', loc: 'Seminar Hall', color: 'rgba(124,58,237,.15)', hasRegistration: true },
-  { id: 12, eventId: 'project-comp-2026', title: 'Project Competition', date: 'Coming Soon', type: 'upcoming', cat: 'Competition', att: null, img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=75', desc: 'Showcase your final year or mini-projects to a panel of industry experts and win exciting prizes.', loc: 'Auditorium', color: 'rgba(245,158,11,.13)', hasRegistration: true },
+  { id: 9, eventId: 'agentic-ai-2026', title: 'Agentic AI Workshop', date: '1st & 2nd April', type: 'past', cat: 'Workshop', att: null, img: '/Events/agenticaiworkshop.jpeg', desc: 'Learn to build autonomous AI agents using modern LLM frameworks and orchestration tools.', loc: 'Computer Labs', color: 'rgba(124, 58, 237,.15)', hasRegistration: true },
+  { id: 10, eventId: 'web-dev-battle-2026', title: 'Web-Dev Battle', date: '6th of April', type: 'past', cat: 'Competition', att: null, img: '/Events/web-dev.jpeg', desc: 'Unleash your creativity and coding skills in the Web Dev Battle, where innovation meets speed! This competition challenges you to design and build a futuristic web solution that goes beyond today’s standards.', loc: 'Seminar Hall', color: 'rgba(236,72,153,.13)', hasRegistration: true },
+  { id: 11, eventId: 'spot-the-bug-2026', title: 'Spot the Bug', date: '7th of April', type: 'past', cat: 'Competition', att: null, img: '/Events/spotthebug.jpeg', desc: 'A thrilling bug-hunting contest to test your debugging and problem-solving skills to the limit!', loc: 'Seminar Hall', color: 'rgba(124,58,237,.15)', hasRegistration: true },
+  { id: 12, eventId: 'project-comp-2026', title: 'Project Competition', date: 'Coming Soon', type: 'past', cat: 'Competition', att: null, img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=75', desc: 'Showcase your final year or mini-projects to a panel of industry experts and win exciting prizes.', loc: 'Auditorium', color: 'rgba(245,158,11,.13)', hasRegistration: true },
 ];
 
 // ── COMMITTEE ──
@@ -33,9 +33,6 @@ export const FACULTY = [
 // ── NOTICES ──
 export const NOTICES = [
   { id: 1, title: 'CSI Membership Registration for 2025–26 is now OPEN!', date: '', type: 'success', isNew: true },
-  { id: 2, title: 'Web-Dev Battle registration link is LIVE', date: 'April 6, 2026', type: 'info', isNew: true },
-  { id: 3, title: 'Spot the Bug registration link is LIVE', date: 'April 7, 2026', type: 'info', isNew: true },
-  { id: 4, title: 'Agentic AI Workshop registration closes in 3 days', date: 'March 27, 2026', type: 'warn', isNew: false },
 ];
 
 // ── CAROUSEL ──

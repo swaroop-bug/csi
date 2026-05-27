@@ -6,35 +6,58 @@ import { GlassCard, Eyebrow, Spinner } from '../components/UI';
 import Ico from '../components/Ico';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 
+
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user, updateName } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [profile, setProfile] = useState({
+    name: '',
+    email: '',
     year: '',
     branch: '',
     memberId: '',
-    rollNo: ''
+    rollNo: '',
+    mobile: ''
   });
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setLoading(false);
+      return;
+    }
     const fetchProfile = async () => {
       try {
         const docRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          setProfile(p => ({ ...p, ...data }));
+          if (!data.email && user.email) {
+            await setDoc(docRef, { email: user.email }, { merge: true });
+            data.email = user.email;
+          }
+          setProfile(p => ({ ...p, name: user.name || '', email: user.email || '', ...data }));
+        } else {
+          const initialData = {
+            name: user.name || '',
+            email: user.email || '',
+            year: '',
+            branch: '',
+            memberId: '',
+            rollNo: '',
+            mobile: ''
+          };
+          await setDoc(docRef, initialData);
+          setProfile(initialData);
         }
       } catch (err) {
         console.error('Error fetching profile:', err);
-        toast.error('Failed to load profile details.');
+        toast.error(`Failed to load profile details: ${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -42,21 +65,33 @@ export default function ProfilePage() {
     fetchProfile();
   }, [user]);
 
+
   const handleSave = async (e) => {
     e.preventDefault();
     setSaving(true);
     try {
+      // 1. Update Auth Display Name
+      await updateName(profile.name);
+
+      // 2. Update Firestore
       const docRef = doc(db, 'users', user.uid);
-      await setDoc(docRef, profile, { merge: true });
+      const updateData = {
+        ...profile,
+        updatedAt: serverTimestamp()
+      };
+      
+      await setDoc(docRef, updateData, { merge: true });
+      
       toast.success('Profile updated successfully!');
       setEditMode(false);
     } catch (err) {
       console.error('Error saving profile:', err);
-      toast.error('Failed to save profile.');
+      toast.error(`Failed to save profile: ${err.message}`);
     } finally {
       setSaving(false);
     }
   };
+
 
   const set = (k, v) => setProfile(p => ({ ...p, [k]: v }));
 
@@ -98,6 +133,17 @@ export default function ProfilePage() {
               <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <div className="grid-2" style={{ gap: 16 }}>
                   <div>
+                    <label className="form-label">Full Name</label>
+                    <input className="glass-input" value={profile.name} onChange={e => set('name', e.target.value)} placeholder="Enter full name" style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.95rem' }} required />
+                  </div>
+                  <div>
+                    <label className="form-label">Phone Number</label>
+                    <input className="glass-input" type="tel" value={profile.mobile} onChange={e => set('mobile', e.target.value)} placeholder="e.g. 9876543210" style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.95rem' }} />
+                  </div>
+                </div>
+
+                <div className="grid-2" style={{ gap: 16 }}>
+                  <div>
                     <label className="form-label">Year of Studying</label>
                     <select className="glass-input" value={profile.year} onChange={e => set('year', e.target.value)} style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.95rem' }}>
                       <option value="">Select Year</option>
@@ -110,15 +156,17 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
+
                 <div className="grid-2" style={{ gap: 16 }}>
                   <div>
                     <label className="form-label">Roll No</label>
                     <input className="glass-input" value={profile.rollNo} onChange={e => set('rollNo', e.target.value)} placeholder="e.g. TU#F######" style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.95rem' }} />
                   </div>
                   <div>
-                    <label className="form-label">CSI Member ID</label>
-                    <input className="glass-input" value={profile.memberId} onChange={e => set('memberId', e.target.value)} placeholder="e.g. CSI-2025-XXXX" style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.95rem' }} />
+                    <label className="form-label">CSI Member ID (Read-only)</label>
+                    <input className="glass-input" value={profile.memberId} readOnly placeholder="Assigned after verification" style={{ width: '100%', padding: '12px 16px', borderRadius: 12, fontSize: '.95rem', opacity: .7, cursor: 'not-allowed' }} />
                   </div>
+
                 </div>
 
                 <div style={{ marginTop: 24, display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
@@ -143,9 +191,14 @@ export default function ProfilePage() {
                     <p style={{ color: '#f1f5f9', fontSize: '1.05rem', fontWeight: 500 }}>{profile.rollNo || <span style={{ color: '#475569', fontStyle: 'italic' }}>Not provided</span>}</p>
                   </div>
                   <div>
+                    <p style={{ color: '#64748b', fontSize: '.85rem', marginBottom: 4 }}>Phone Number</p>
+                    <p style={{ color: '#f1f5f9', fontSize: '1.05rem', fontWeight: 500 }}>{profile.mobile || <span style={{ color: '#475569', fontStyle: 'italic' }}>Not provided</span>}</p>
+                  </div>
+                  <div>
                     <p style={{ color: '#64748b', fontSize: '.85rem', marginBottom: 4 }}>CSI Member ID</p>
                     <p style={{ color: '#f1f5f9', fontSize: '1.05rem', fontWeight: 500 }}>{profile.memberId || <span style={{ color: '#475569', fontStyle: 'italic' }}>Not provided</span>}</p>
                   </div>
+
                 </div>
               </div>
             )}

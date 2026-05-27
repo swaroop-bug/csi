@@ -108,15 +108,31 @@ router.patch('/:id', verifyFirebaseToken, async (req, res) => {
 
         // ── AUTO-UPDATE PROFILE ──
         // Find user by email and sync memberId
+        let uDocRef = null;
         const uSnap = await db.collection('users').where('email', '==', mData.email).limit(1).get();
         if (!uSnap.empty) {
-          const uDoc = uSnap.docs[0];
-          await uDoc.ref.update({
+          uDocRef = uSnap.docs[0].ref;
+        } else {
+          // If not found in users collection, check Firebase Auth
+          try {
+            const { auth: firebaseAuth } = require('../firebase');
+            const userRecord = await firebaseAuth.getUserByEmail(mData.email);
+            uDocRef = db.collection('users').doc(userRecord.uid);
+          } catch (authErr) {
+            console.log(`⚠️ User not found in Firebase Auth: ${mData.email}`);
+          }
+        }
+
+        if (uDocRef) {
+          await uDocRef.set({
+            name:     mData.name,
+            email:    mData.email,
             memberId: mData.memberId,
-            year:     mData.year, // Sync year from application
+            year:     mData.year,
+            mobile:   mData.mobile,
             isMember: true
-          });
-          console.log(`✅ Profile updated for ${mData.email}`);
+          }, { merge: true });
+          console.log(`✅ Profile updated/created for ${mData.email}`);
         }
       }
     } catch (err) {
